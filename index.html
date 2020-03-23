@@ -2,20 +2,89 @@
 <html>
 
 <head>
-    <style type="text/css">
-        #mySvg {
-            height: 500px;
-            width: 500px;
-            border: 1px solid gray;
-        }
-    </style>
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div id="myViz">
-        <svg id="mySvg" />
+
+    <div>
+        <button onclick="update('achievement')">Achievement</button>
+        <button onclick="update('affection')">Affection</button>
     </div>
+
+    <script>
+        // Set some variables here
+        const margin = {
+            top: 10,
+            right: 30,
+            bottom: 30,
+            left: 60
+        }
+        const width = 1000 - margin.left - margin.right;
+        const height = 500 - margin.top - margin.bottom;
+        const rectHeight = 5;
+        const minAge = 18;
+        const maxAge = 90;
+        const maxNum = 190;
+
+        // Create new svg
+        var svg = d3.select("body")
+                        .append("svg")
+                            .attr("width", width + margin.left + margin.right)
+                            .attr("height", height + margin.top + margin.bottom)
+                        .append("g")
+                            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        // Create x and y axis
+        var x = d3.scaleLinear()
+                .domain([minAge, maxAge])
+                .range([0, width])
+
+        var y = d3.scaleLinear()
+            .domain([0, maxNum])
+            .range([height, 0]);
+
+        // Append x axis to the bottom of the svg
+        svg.append("g")
+                .attr("transform", "translate(0," + (height + 5) + ")")
+                .call(d3.axisBottom(x).tickSize(0));
+
+
+        function update(category) {
+            // Load in data from csv
+            d3.csv("happy_moments_sampled_data.csv").then(function(raw_data) {
+                var data = raw_data.filter(function (d) {return d.predicted_category === category;});
+                const ages = d3.range(minAge, maxAge, (maxAge - minAge))
+                
+                var histogram = d3.histogram()
+                    .value(function(d) {return d.age;})
+                    .domain(x.domain())
+                    .thresholds(x.ticks(maxAge - minAge));
+
+                var bins = histogram(data);
+
+
+                // Remove bars and exit previous dataset, then add/enter new dataset 
+                var rects = svg.selectAll("rect")
+                    .remove()
+                    .exit()
+                    .data(bins);
+
+                rects.enter().append("rect")
+                        .attr("class", "rect")
+                        .attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
+                        .attr("width", function(d) { return x(d.x1) - x(d.x0) - 5 ; })
+                        .attr("height", function(d) { return height - y(d.length); })
+                    .merge(rects)
+                    
+            });
+        }
+
+        // Initialize plot with category = affection
+        update("affection");
+
+    </script>
 </body>
 
 </html>

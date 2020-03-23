@@ -1,0 +1,10 @@
+body {
+    background-color: #FEEFD7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rect {
+    fill: #B1B0B1;
+}
