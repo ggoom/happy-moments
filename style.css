@@ -8,3 +8,8 @@ body {
 .rect {
     fill: #B1B0B1;
 }
+
+.axis path {
+    fill: #646365;
+    stroke-width: 2px;
+}

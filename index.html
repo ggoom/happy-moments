@@ -9,19 +9,19 @@
 <body>
 
     <div>
-        <button onclick="update('achievement')">Achievement</button>
-        <button onclick="update('affection')">Affection</button>
+        <!-- <button onclick="update('achievement')">Achievement</button>
+        <button onclick="update('affection')">Affection</button> -->
     </div>
 
     <script>
         // Set some variables here
         const minAge = 18;
-        const maxAge = 90;
-        const maxNum = 190;
+        const maxAge = 84;
+        const maxNum = 80;
 
-        var margin = { top: 20, right: 15, bottom: 60, left: 60 }
-            , width = 960 - margin.left - margin.right
-            , height = 720 - margin.top - margin.bottom;
+        var margin = { top: 20, right: 15, bottom: 60, left: 15 }
+            , width = 1100 - margin.left - margin.right
+            , height = 620 - margin.top - margin.bottom;
 
         var x = d3.scaleLinear()
             .domain([minAge, maxAge])
@@ -46,22 +46,22 @@
         var xAxis = d3.axisBottom(x).tickSize(0);
 
         main.append('g')
-            .attr('transform', 'translate(0,' + height + ')')
+            .attr('transform', 'translate(0,' + (height + 8) + ')')
             .attr('class', 'main axis date')
             .call(xAxis);
 
         // draw the y axis
         var yAxis = d3.axisLeft(y).tickSize(0);
 
-        main.append('g')
-            .attr('transform', 'translate(0,0)')
-            .attr('class', 'main axis date')
-            .call(yAxis);
+        // main.append('g')
+        //     .attr('transform', 'translate(0,0)')
+        //     .attr('class', 'main axis date')
+        //     .call(yAxis);
 
 
         function update(category) {
             // Load in data from csv
-            d3.csv("happy_moments_sampled_data.csv").then(function (raw_data) {
+            d3.csv("happy_moments_sampled_data_4000.csv").then(function (raw_data) {
                 var data = raw_data.filter(function (d) { return d.predicted_category === category; });
                 // const ages = d3.range(minAge, maxAge, (maxAge - minAge))
 
@@ -87,12 +87,12 @@
                             .attr("transform", function (d, i) { return `translate(0, ${y(i)})`; })
                             .attr("x", 0)
                             .attr("y", 0)
-                            .attr("rx", 1)
-                            .attr("ry", 1)
-                            .attr("height", 1)
-                            .attr("width", 1);
+                            .attr("rx", .7)
+                            .attr("ry", .7)
+                            .attr("class", "rect")
+                            .attr("height", 5)
+                            .attr("width", 12);
                     })
-
             });
         }
 
