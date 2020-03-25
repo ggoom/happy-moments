@@ -79,23 +79,28 @@
                 // assign indices to data within each age
                 dataByAge.forEach((e1) => e1.values.forEach((e2, j) => e2.index = j));
                 // console.log(JSON.stringify(dataByAge));
-                console.log(dataByAge[0])
-                var g = main.append("svg:g");
+                console.log(d3.entries(dataByAge[0])[1].value)
+                var g = main.append("svg:g")
+                    .attr("transform", "translate(12, 12)");
 
-                g.selectAll("year")
+                main.selectAll("g")
                     .data(dataByAge)
-                    .enter().append("year")
-                    .attr("x", function (d) { return x(d.key); })
+                    .enter().append("g")
+                    // .classed("year")
+                    .attr("transform", function (d) { return `translate(${x(d.key)}, 0)`; })
                     .each(function (year, j) {
                         var thisYear = d3.select(this)
                             .selectAll('rect')
-                            .data(dataByAge[j])
+                            .data(d3.entries(d3.entries(dataByAge[j])[1].value))
 
-                        thisYear.enter().append("svg:rect")
-                            .attr("x", function (d) { console.log(d); return x(d.key); })
-                            .attr("y", function (d, i) { return i * 4 })
-                            .attr("height", 4)
-                            .attr("width", 4);
+                        thisYear.enter().append("rect")
+                            .attr("transform", function (d, i) { return `translate(0, ${y(i)})`; })
+                            .attr("x", 0)
+                            .attr("y", 0)
+                            .attr("rx", 1)
+                            .attr("ry", 1)
+                            .attr("height", 1)
+                            .attr("width", 1);
                     })
 
             });
