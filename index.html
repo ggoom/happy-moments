@@ -58,6 +58,11 @@
         //     .attr('class', 'main axis date')
         //     .call(yAxis);
 
+        // tooltip
+        // Define the div for the tooltip
+        var div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0)
 
         function update(category) {
             // Load in data from csv
@@ -77,7 +82,7 @@
                     .data(dataByAge)
                     .enter().append("g")
                     .attr("class", "year")
-                    .attr("transform", function (d, i) { console.log(i); return `translate(${x(d.key)}, 0)`; })
+                    .attr("transform", function (d, i) { return `translate(${x(d.key)}, 0)`; })
                     .each(function (year, j) {
                         var thisYear = d3.select(this)
                             .selectAll('rect')
@@ -91,7 +96,42 @@
                             .attr("ry", .7)
                             .attr("class", "rect")
                             .attr("height", 5)
-                            .attr("width", 12);
+                            .attr("width", 12)
+                            .on("mouseover", function (d) {
+                                // highlight rect 
+                                d3.select(this).style("fill", function() {
+                                    return d3.rgb(172,216,229);
+                                });
+                                // make rect expand
+                                var w = +d3.select(this).attr("width");
+                                d3.select(this).attr("x", +d3.select(this).attr("x") - .5).attr("width", w + 1);
+                                var h = +d3.select(this).attr("height");
+                                d3.select(this).attr("y", +d3.select(this).attr("y") - .5).attr("height", h + 1);
+
+                                // tooltip
+                                div.transition()
+                                    .duration(50)
+                                    .style("opacity", 1)
+                                div.html("&ldquo;" + d.value.cleaned_hm + "&rdquo;")
+                                    .style("left", (d3.event.pageX + 15) + "px")
+                                    .style("top", (d3.event.pageY - 20) + "px");
+                            })
+                            .on("mouseout", function (d) {
+                                // unhighlight color
+                                d3.select(this).style("fill", function() {
+                                    return d3.color('#B1B0B1');
+                                });
+                                // change size back to normal
+                                var w = +d3.select(this).attr("width");
+                                d3.select(this).attr("x", +d3.select(this).attr("x") + .5).attr("width", w - 1);
+                                var h = +d3.select(this).attr("height");
+                                d3.select(this).attr("y", +d3.select(this).attr("y") + .5).attr("height", h - 1);
+                                
+                                // tooltip
+                                div.transition()
+                                    .duration(50)
+                                    .style("opacity", 0);
+                            });
                     })
             });
         }
