@@ -21,7 +21,7 @@
 
         var margin = { top: 20, right: 15, bottom: 60, left: 60 }
             , width = 960 - margin.left - margin.right
-            , height = 500 - margin.top - margin.bottom;
+            , height = 720 - margin.top - margin.bottom;
 
         var x = d3.scaleLinear()
             .domain([minAge, maxAge])
@@ -31,7 +31,7 @@
             .range([height, 0]);
 
         var chart = d3.select('body')
-            .append('svg:svg')
+            .append('svg')
             .attr('width', width + margin.right + margin.left)
             .attr('height', height + margin.top + margin.bottom)
             .attr('class', 'chart')
@@ -63,31 +63,21 @@
             // Load in data from csv
             d3.csv("happy_moments_sampled_data.csv").then(function (raw_data) {
                 var data = raw_data.filter(function (d) { return d.predicted_category === category; });
-                const ages = d3.range(minAge, maxAge, (maxAge - minAge))
+                // const ages = d3.range(minAge, maxAge, (maxAge - minAge))
 
                 var dataByAge = d3.nest()
                     .key(function (d) { return d.age; }).sortKeys(d3.ascending)
                     .entries(data);
-                console.log(JSON.stringify(dataByAge));
-
-                var ageCount = d3.nest()
-                    .key(function (d) { return d.age; }).sortKeys(d3.ascending)
-                    .rollup(function (v) { return v.length; })
-                    .entries(data);
-                // console.log(JSON.stringify(ageCount));
-
-                // assign indices to data within each age
-                dataByAge.forEach((e1) => e1.values.forEach((e2, j) => e2.index = j));
                 // console.log(JSON.stringify(dataByAge));
-                console.log(d3.entries(dataByAge[0])[1].value)
-                var g = main.append("svg:g")
-                    .attr("transform", "translate(12, 12)");
 
-                main.selectAll("g")
+                var container = main.append("svg:g")
+
+                // console.log(y(0))
+                container.selectAll("g")
                     .data(dataByAge)
                     .enter().append("g")
-                    // .classed("year")
-                    .attr("transform", function (d) { return `translate(${x(d.key)}, 0)`; })
+                    .attr("class", "year")
+                    .attr("transform", function (d, i) { console.log(i); return `translate(${x(d.key)}, 0)`; })
                     .each(function (year, j) {
                         var thisYear = d3.select(this)
                             .selectAll('rect')
