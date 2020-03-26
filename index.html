@@ -7,11 +7,16 @@
 </head>
 
 <body>
-
-    <div>
-        <!-- <button onclick="update('achievement')">Achievement</button>
-        <button onclick="update('affection')">Affection</button> -->
+    <div class="btn-group">
+        <button onclick="update('achievement')">Achievement</button>
+        <button onclick="update('affection')">Affection</button>
+        <button onclick="update('leisure')">Bonding</button>
+        <button onclick="update('enjoy_the_moment')">Enjoy the Moment</button>
+        <button onclick="update('exercise')">Exercise</button>
+        <button onclick="update('leisure')">Leisure</button>
+        <button onclick="update('nature')">Nature</button>
     </div>
+                  
 
     <script>
         // Set some variables here
@@ -21,7 +26,7 @@
 
         var margin = { top: 20, right: 15, bottom: 60, left: 15 }
             , width = 1100 - margin.left - margin.right
-            , height = 620 - margin.top - margin.bottom;
+            , height = 600 - margin.top - margin.bottom;
 
         var x = d3.scaleLinear()
             .domain([minAge, maxAge])
@@ -43,10 +48,10 @@
             .attr('class', 'main')
 
         // draw the x axis
-        var xAxis = d3.axisBottom(x).tickSize(0);
+        var xAxis = d3.axisBottom(x).tickPadding(6).tickSize(0);
 
         main.append('g')
-            .attr('transform', 'translate(0,' + (height + 8) + ')')
+            .attr('transform', 'translate(0,' + (height + 8.5) + ')')
             .attr('class', 'main axis date')
             .call(xAxis);
 
@@ -58,24 +63,24 @@
         //     .attr('class', 'main axis date')
         //     .call(yAxis);
 
-        // tooltip
-        // Define the div for the tooltip
+        // TOOLTIP
+        // define the div for the tooltip
         var div = d3.select("body").append("div")
             .attr("class", "tooltip")
             .style("opacity", 0)
+
 
         function update(category) {
             // Load in data from csv
             d3.csv("happy_moments_sampled_data_4000.csv").then(function (raw_data) {
                 var data = raw_data.filter(function (d) { return d.predicted_category === category; });
-                // const ages = d3.range(minAge, maxAge, (maxAge - minAge))
 
                 var dataByAge = d3.nest()
                     .key(function (d) { return d.age; }).sortKeys(d3.ascending)
                     .entries(data);
                 // console.log(JSON.stringify(dataByAge));
 
-                var container = main.append("svg:g")
+                var container = main.append("g")
 
                 // console.log(y(0))
                 container.selectAll("g")
@@ -86,31 +91,32 @@
                     .each(function (year, j) {
                         var thisYear = d3.select(this)
                             .selectAll('rect')
-                            .data(d3.entries(d3.entries(dataByAge[j])[1].value))
+                            .data(d3.entries(d3.entries(dataByAge[j])[1].value), function (d) { return d.hmid; });
 
+                        console.log(thisYear.exit());
+                        
                         thisYear.enter().append("rect")
                             .attr("transform", function (d, i) { return `translate(0, ${y(i)})`; })
                             .attr("x", 0)
                             .attr("y", 0)
                             .attr("rx", .7)
                             .attr("ry", .7)
-                            .attr("class", "rect")
+                            .merge(thisYear)
                             .attr("height", 5)
                             .attr("width", 12)
                             .on("mouseover", function (d) {
                                 // highlight rect 
                                 d3.select(this).style("fill", function() {
-                                    return d3.rgb(172,216,229);
+                                    return d3.color('#F4D076');
                                 });
                                 // make rect expand
                                 var w = +d3.select(this).attr("width");
                                 d3.select(this).attr("x", +d3.select(this).attr("x") - .5).attr("width", w + 1);
                                 var h = +d3.select(this).attr("height");
                                 d3.select(this).attr("y", +d3.select(this).attr("y") - .5).attr("height", h + 1);
-
                                 // tooltip
                                 div.transition()
-                                    .duration(50)
+                                    .duration(30)
                                     .style("opacity", 1)
                                 div.html("&ldquo;" + d.value.cleaned_hm + "&rdquo;")
                                     .style("left", (d3.event.pageX + 15) + "px")
@@ -119,20 +125,22 @@
                             .on("mouseout", function (d) {
                                 // unhighlight color
                                 d3.select(this).style("fill", function() {
-                                    return d3.color('#B1B0B1');
+                                    return d3.color('#90B5BF');
                                 });
                                 // change size back to normal
                                 var w = +d3.select(this).attr("width");
                                 d3.select(this).attr("x", +d3.select(this).attr("x") + .5).attr("width", w - 1);
                                 var h = +d3.select(this).attr("height");
                                 d3.select(this).attr("y", +d3.select(this).attr("y") + .5).attr("height", h - 1);
-                                
                                 // tooltip
                                 div.transition()
-                                    .duration(50)
+                                    .duration(30)
                                     .style("opacity", 0);
                             });
+                        
+                        thisYear.exit().remove();
                     })
+                    console.log("---------------------------");
             });
         }
 
