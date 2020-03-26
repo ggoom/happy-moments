@@ -108,6 +108,8 @@
             .attr("class", "tooltip")
             .style("opacity", 0);
 
+        var container = main.append("g")
+
         function update(category) {
             // Load in data from csv
             d3.csv("happy_moments_sampled_data_4000.csv").then(function (raw_data) {
@@ -116,13 +118,11 @@
                 var dataByAge = d3.nest()
                     .key(function (d) { return d.age; }).sortKeys(d3.ascending)
                     .entries(data);
-                console.log(JSON.stringify(dataByAge));
+                // console.log(JSON.stringify(dataByAge));
 
-                var container = main.append("g")
-
-                // console.log(y(0))
+                container.selectAll("g").remove() //clear container for new data
                 container.selectAll("g")
-                    .data(dataByAge)
+                    .data(dataByAge, function (d) { return d.hmid; })
                     .enter().append("g")
                     .attr("class", "year")
                     .attr("transform", function (d, i) { return `translate(${x(d.key)}, 0)`; })
@@ -130,8 +130,6 @@
                         var thisYear = d3.select(this)
                             .selectAll('rect')
                             .data(d3.entries(d3.entries(dataByAge[j])[1].value), function (d) { return d.hmid; });
-
-                        console.log(thisYear.exit());
 
                         thisYear.enter().append("rect")
                             .attr("transform", function (d, i) { return `translate(0, ${y(i)})`; })
@@ -179,10 +177,7 @@
                                     .style("opacity", 0);
                                 d3.select(this).attr("class", null)
                             });
-
-                        thisYear.exit().remove();
                     })
-                console.log("---------------------------");
             });
         }
         // open modal dialogue on click
