@@ -1,23 +1,74 @@
 body {
-    background-color: #FEEFD7;
-    display: flex;
+    background-color: white;
+    display: grid;
+    grid-template-rows: 50px 600px auto;
+    height: 100vh;
     align-items: center;
     justify-content: center;
 }
 
-.rect {
-    fill: #B1B0B1;
+svg {
+    grid-row: 2;
+    /* grid-column: 2; */
 }
 
+rect {
+    fill: #90B5BF;
+}
+
+/* Tooltip */
 div.tooltip {	
     position: absolute;			
-    text-align: center;			
+    text-align: left;			
     max-width: 200px;					
     min-height: 5px;					
-    padding: 10px;				
+    padding: 5px;				
     font: 12px sans-serif;		
     background: rgb(255, 255, 255);	
-    border: 0px;		
+    border: 1px;
     border-radius: 3px;			
     pointer-events: none;			
 }
+
+/* Axis */
+.axis path,
+.axis line {
+    fill: none;
+    stroke: lightslategray;
+    stroke-width: 2;
+}
+
+.axis text {
+    stroke: lightslategray;
+}
+
+
+
+/* Menu */
+.btn-group button {
+    grid-row: 1;
+    background-color: white;
+    border: none;
+    color: lightslategray;
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    float: left; /* Float the buttons side by side */
+}
+  
+  .btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+  }
+  
+  /* Clear floats (clearfix hack) */
+  .btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  /* Add a background color on hover */
+  .btn-group button:hover {
+    background-color: lightgray;
+  }
+
+  button:focus {outline:0;}
