@@ -21,3 +21,18 @@ div.tooltip {
     border-radius: 3px;			
     pointer-events: none;			
 }
+
+.demographic-tag {
+    padding: 7px 14px;
+    background-color: #eeeeee;
+    border: solid 1px #ddd;
+    border-radius: 30px;
+}
+
+/* bootstrap override */
+.modal-header {
+    border: 0px;
+}
+.modal-footer {
+    border: 0px;
+}

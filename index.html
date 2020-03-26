@@ -25,7 +25,11 @@
                 <div class="modal-body">
                 </div>
                 <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                    <div class="demographic-tag gender"></div>
+                    <div class="demographic-tag marital"></div>
+                    <div class="demographic-tag parenthood"></div>
+                    <div class="demographic-tag age"></div>
+                    <div class="demographic-tag country"></div>
                 </div>
             </div>
         </div>
@@ -130,12 +134,14 @@
                                     .style("left", (d3.event.pageX) + "px")
                                     .style("top", (d3.event.pageY - 28) + "px");
                                 //data for modal
-                                d3.select(this).attr("class", "info").datum(d);
+                                d3.select(this).attr("class", "info").datum(d).style("cursor", "pointer");
+
                             })
                             .on("mouseout", function (d) {
                                 tooltip.transition()
                                     .duration(200)
                                     .style("opacity", 0);
+                                d3.select(this).attr("class", null)
                             });
                     })
             });
@@ -148,7 +154,18 @@
             let modalBody = d3.selectAll(".modal-body");
             modalBody.html("&ldquo;" + d.value.cleaned_hm + "&rdquo;");
             let modalFooter = d3.selectAll(".modal-footer");
-            modalFooter.html("Gender: " + d.value.gender + " | Marital: " + d.value.marital + " | Parenthood: " + d.value.parenthood + " | Country: " + d.value.country);
+            //tags
+            let tagGender = d3.selectAll(".demographic-tag.gender")
+            tagGender.html(d.value.gender == 'f' ? 'Female' : 'Male')
+            let tagMarital = d3.selectAll(".demographic-tag.marital")
+            tagMarital.html(d.value.marital.charAt(0).toUpperCase() + d.value.marital.slice(1))
+            let tagParenthood = d3.selectAll(".demographic-tag.parenthood")
+            tagParenthood.html(d.value.parenthood == 'y' ? 'Parent' : 'Not Parent')
+            let tagAge = d3.selectAll(".demographic-tag.age")
+            tagAge.html('Age ' + d.value.age.slice(0, -2))
+            let tagCountry = d3.selectAll(".demographic-tag.country")
+            tagCountry.html(d.value.country)
+            // modalFooter.html("Gender: " + d.value.gender + " | Marital: " + d.value.marital + " | Parenthood: " + d.value.parenthood + " | Country: " + d.value.country);
         })
         // Initialize plot with category = affection
         update("affection");
