@@ -48,11 +48,11 @@ div.tooltip {
 .btn-group button {
     grid-row: 1;
     background-color: white;
-    border: none;
     color: lightslategray;
-    padding: 10px 24px; /* Some padding */
+    padding: 5px 24px; /* Some padding */
     cursor: pointer; /* Pointer/hand icon */
     float: left; /* Float the buttons side by side */
+    border: none;
 }
   
   .btn-group button:not(:last-child) {
@@ -65,17 +65,18 @@ div.tooltip {
     clear: both;
     display: table;
   }
-  
+
   /* Add a background color on hover */
-  .btn-group button:hover {
-    background-color: lightgray;
+ .btn-group button:hover {
+    text-shadow: -0.06ex 0 lightslategray, 0.06ex 0 lightslategray;
   }
 
   button:focus {outline:0;}
 
-  
+
 .demographic-tag {
-    padding: 7px 14px;
+    font-size: 12px;
+    padding: 5px 14px;
     background-color: #eeeeee;
     border: solid 1px #ddd;
     border-radius: 30px;

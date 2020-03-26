@@ -10,13 +10,13 @@
 
 <body>
     <div class="btn-group">
-        <button onclick="update('achievement')">Achievement</button>
-        <button onclick="update('affection')">Affection</button>
-        <button onclick="update('leisure')">Bonding</button>
-        <button onclick="update('enjoy_the_moment')">Enjoy the Moment</button>
-        <button onclick="update('exercise')">Exercise</button>
-        <button onclick="update('leisure')">Leisure</button>
-        <button onclick="update('nature')">Nature</button>
+        <button onclick="update('achievement')">ACHIEVEMENT</button>
+        <button onclick="update('affection')">AFFECTION</button>
+        <button onclick="update('leisure')">BONDING</button>
+        <button onclick="update('enjoy_the_moment')">ENJOY THE MOMENT</button>
+        <button onclick="update('exercise')">EXERCISE</button>
+        <button onclick="update('leisure')">LEISURE</button>
+        <button onclick="update('nature')">NATURE</button>
     </div>
                   
 
@@ -102,6 +102,9 @@
             .attr("class", "tooltip")
             .style("opacity", 0);
 
+        var container = main.append("g")
+            .attr("class", "container");
+
         function update(category) {
             // Load in data from csv
             d3.csv("happy_moments_sampled_data_4000.csv").then(function (raw_data) {
@@ -110,12 +113,10 @@
                 var dataByAge = d3.nest()
                     .key(function (d) { return d.age; }).sortKeys(d3.ascending)
                     .entries(data);
-                console.log(JSON.stringify(dataByAge));
-
-                var container = main.append("g")
-
+                // console.log(JSON.stringify(dataByAge));
+                
                 // console.log(y(0))
-                container.selectAll("g")
+                var c = container.selectAll("g")
                     .data(dataByAge)
                     .enter().append("g")
                     .attr("class", "year")
@@ -125,7 +126,8 @@
                             .selectAll('rect')
                             .data(d3.entries(d3.entries(dataByAge[j])[1].value), function (d) { return d.hmid; });
 
-                        console.log(thisYear.exit());
+                        console.log(category, thisYear.exit());
+                        console.log(category, thisYear.enter());
                         
                         thisYear.enter().append("rect")
                             .attr("transform", function (d, i) { return `translate(0, ${y(i)})`; })
@@ -176,6 +178,8 @@
                         
                         thisYear.exit().remove();
                     })
+                    .exit().remove();
+
                     console.log("---------------------------");
             });
         }
