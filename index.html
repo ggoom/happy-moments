@@ -6,22 +6,25 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
         crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
+    <div class="d3chart"></div>
     <div class="btn-group">
-        <button onclick="update('achievement')">Achievement</button>
-        <button onclick="update('affection')">Affection</button>
-        <button onclick="update('leisure')">Bonding</button>
-        <button onclick="update('enjoy_the_moment')">Enjoy the Moment</button>
-        <button onclick="update('exercise')">Exercise</button>
-        <button onclick="update('leisure')">Leisure</button>
-        <button onclick="update('nature')">Nature</button>
+        <button class="category achievement" onclick="update('achievement')">Achievement</button>
+        <button class="category affection" onclick="update('affection')">Affection</button>
+        <button class="category bonding" onclick="update('bonding')">Bonding</button>
+        <button class="category enjoy_the_moment" onclick="update('enjoy_the_moment')">Enjoy the Moment</button>
+        <button class="category exercise" onclick="update('exercise')">Exercise</button>
+        <button class="category leisure" onclick="update('leisure')">Leisure</button>
+        <button class="category nature" onclick="update('nature')">Nature</button>
     </div>
 
 
     <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog modal-md">
+        <div class="modal-dialog modal-md modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -62,7 +65,7 @@
             .domain([0, maxNum])
             .range([height, 0]);
 
-        var chart = d3.select('body')
+        var chart = d3.select('.d3chart')
             .append('svg')
             .attr('width', width + margin.right + margin.left)
             .attr('height', height + margin.top + margin.bottom)
@@ -111,6 +114,10 @@
         var container = main.append("g")
 
         function update(category) {
+            //update colors for the category buttons
+            $("button.category").css({ "background-color": "#90B5BF", "box-shadow": "none" });
+            $("button.category." + category).css({ "background-color": "lightslategray", "box-shadow": "inset 0 0 .2rem #666" });
+
             // Load in data from csv
             d3.csv("happy_moments_sampled_data_4000.csv").then(function (raw_data) {
                 var data = raw_data.filter(function (d) { return d.predicted_category === category; });

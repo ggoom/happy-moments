@@ -1,10 +1,10 @@
 body {
-    background-color: white;
-    display: grid;
-    grid-template-rows: 50px 600px auto;
+    background-color: #fdfdfd;
     height: 100vh;
-    align-items: center;
+    text-align: center;
     justify-content: center;
+    font-family: 'Work Sans', sans-serif;
+
 }
 
 svg {
@@ -19,15 +19,18 @@ rect {
 /* Tooltip */
 div.tooltip {	
     position: absolute;			
-    text-align: left;			
-    max-width: 200px;					
+    text-align: left;
+    max-width: 12rem;					
     min-height: 5px;					
-    padding: 5px;				
-    font: 12px sans-serif;		
-    background: rgb(255, 255, 255);	
+    padding: .6rem;				
+    font: .8rem sans-serif;		
+    background: rgb(255, 255, 255, .9);	
     border: 1px;
     border-radius: 3px;			
-    pointer-events: none;			
+    pointer-events: none;	
+    box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+    font-family: 'Work Sans', sans-serif;
+		
 }
 
 /* Axis */
@@ -52,12 +55,16 @@ div.tooltip {
 /* Menu */
 .btn-group button {
     grid-row: 1;
-    background-color: white;
+    background-color: #90B5BF;
     border: none;
-    color: lightslategray;
+    color: white;
     padding: 10px 24px; /* Some padding */
+    margin: 5px;
     cursor: pointer; /* Pointer/hand icon */
     float: left; /* Float the buttons side by side */
+    font-size: .8rem;
+    border-radius: .2rem;
+    text-transform: uppercase;
 }
   
   .btn-group button:not(:last-child) {
@@ -73,7 +80,7 @@ div.tooltip {
   
   /* Add a background color on hover */
   .btn-group button:hover {
-    background-color: lightgray;
+    background-color: lightslategray;
   }
 
   button:focus {outline:0;}
@@ -83,7 +90,7 @@ div.tooltip {
     padding: 7px 14px;
     background-color: #eeeeee;
     border: solid 1px #ddd;
-    border-radius: 30px;
+    border-radius: 2rem;
 }
 
 /* bootstrap override */
@@ -97,6 +104,11 @@ div.tooltip {
     border: 0px;
     padding: 0px;
 }
+
+.modal-body {
+    text-align: left;
+}
+
 .modal-footer {
     border: 0px;
     justify-content: flex-start;
