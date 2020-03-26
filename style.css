@@ -42,6 +42,11 @@ div.tooltip {
     stroke: lightslategray;
 }
 
+.axis-label {
+    stroke: lightslategray;
+    font-size: 0.8rem;
+}
+
 
 
 /* Menu */
@@ -83,9 +88,19 @@ div.tooltip {
 }
 
 /* bootstrap override */
+.modal-content {
+    padding: 1rem;
+    border-radius: .5rem;
+    border: none;
+}
+
 .modal-header {
     border: 0px;
+    padding: 0px;
 }
 .modal-footer {
     border: 0px;
+    justify-content: flex-start;
+    font-size: .8rem;
 }
+
