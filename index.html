@@ -204,6 +204,16 @@
         // Initialize plot with category = affection
         update("affection");
 
+
+        var remove = d3.transition()
+            .attr("delay", function (d, i) { return 100000000 * i; })
+            .attr("fill", "white")
+            .end();
+        
+        var append = d3.transition()
+            .attr("delay", function (d, i) { return 100000000 * i; })
+            .attr("fill", "lightslategray");
+
     </script>
 
 </body>

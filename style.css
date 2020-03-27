@@ -23,10 +23,13 @@ div.tooltip {
     max-width: 200px;					
     min-height: 5px;					
     padding: 5px;				
-    font: 12px sans-serif;		
+    font: 12px sans-serif;
+    color: lightslategray;
     background: rgb(255, 255, 255);	
-    border: 1px;
-    border-radius: 3px;			
+    border-width: 1px;
+    border-style: solid;
+    border-color: lightslategray;
+    /* border-radius: 3px;			 */
     pointer-events: none;			
 }
 
