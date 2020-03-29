@@ -11,6 +11,67 @@
 </head>
 
 <body>
+    <div class="heading">
+        <h1>happy moments</h1>
+    </div>
+    <div class="filter-container">
+        <div form class="filters">
+            <div class="row">
+                <div class="col-md">
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" id="customRadioFemale" name="customRadioFemale" class="custom-control-input"
+                            onclick="updateFilter()" checked>
+                        <label class="custom-control-label" for="customRadioFemale">Female</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" id="customRadioMale" name="customRadioMale" class="custom-control-input"
+                            onclick="updateFilter()" checked>
+                        <label class="custom-control-label" for="customRadioMale">Male</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" id="customRadioSingle" name="customRadioSingle" class="custom-control-input"
+                            onclick="updateFilter()" checked>
+                        <label class="custom-control-label" for="customRadioSingle">Single</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" id="customRadioMarried" name="customRadioMarried" class="custom-control-input"
+                            onclick="updateFilter()" checked>
+                        <label class="custom-control-label" for="customRadioMarried">Married</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" id="customRadioDivorced" name="customRadioDivorced" class="custom-control-input"
+                            onclick="updateFilter()" checked>
+                        <label class="custom-control-label" for="customRadioDivorced">Divorced</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" id="customRadioSeparated" name="customRadioSeparated" class="custom-control-input"
+                            onclick="updateFilter()" checked>
+                        <label class="custom-control-label" for="customRadioSeparated">Separated</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" id="customRadioWidowed" name="customRadioWidowed" class="custom-control-input"
+                            onclick="updateFilter()" checked>
+                        <label class="custom-control-label" for="customRadioWidowed">Widowed</label>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" id="customRadioParent" name="customRadioParent" class="custom-control-input"
+                            onclick="updateFilter()" checked>
+                        <label class="custom-control-label" for="customRadioParent">Parent</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" id="customRadioNotParent" name="customRadioNotParent" class="custom-control-input"
+                            onclick="updateFilter()" checked>
+                        <label class="custom-control-label" for="customRadioNotParent">Not Parent</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="d3chart"></div>
     <div class="btn-group">
         <button class="category achievement" onclick="update('achievement')">Achievement</button>
@@ -115,8 +176,8 @@
 
         function update(category) {
             //update colors for the category buttons
-            $("button.category").css({ "background-color": "#90B5BF", "box-shadow": "none" });
-            $("button.category." + category).css({ "background-color": "lightslategray", "box-shadow": "inset 0 0 .2rem #666" });
+            $("button.category").css({ "background-color": "#867C75", "box-shadow": "none" });
+            $("button.category." + category).css({ "background-color": "#F3B124", "box-shadow": "inset 0 0 .3rem #aaa" });
 
             // Load in data from csv
             d3.csv("happy_moments_sampled_data_4000.csv").then(function (raw_data) {
@@ -151,7 +212,7 @@
                             .on("mouseover", function (d) {
                                 // highlight rect 
                                 d3.select(this).style("fill", function () {
-                                    return d3.color('#F4D076');
+                                    return d3.color('#AEDD31');
                                 });
                                 // make rect expand
                                 var w = +d3.select(this).attr("width");
@@ -171,8 +232,8 @@
                             .on("mouseout", function (d) {
                                 // unhighlight color
                                 d3.select(this).style("fill", function () {
-                                    return d3.color('#90B5BF');
-                                });
+                                    return d3.color('#F3B124');
+                                })
                                 // change size back to normal
                                 var w = +d3.select(this).attr("width");
                                 d3.select(this).attr("x", +d3.select(this).attr("x") + .5).attr("width", w - 1);
@@ -180,9 +241,9 @@
                                 d3.select(this).attr("y", +d3.select(this).attr("y") + .5).attr("height", h - 1);
                                 // tooltip
                                 tooltip.transition()
-                                    .duration(30)
+                                    .duration(100)
                                     .style("opacity", 0);
-                                d3.select(this).attr("class", null)
+                                d3.select(this).attr("class", function () { return isActive(d) ? "is-active" : "is-inactive" });
                             });
                     })
             });
@@ -197,17 +258,82 @@
             let modalFooter = d3.selectAll(".modal-footer");
             //tags
             let tagGender = d3.selectAll(".demographic-tag.gender")
-            tagGender.html(d.value.gender == 'f' ? 'Female' : 'Male')
+            if (d.value.gender == 'f') {
+                tagGender.html('Female')
+            }
+            else if (d.value.gender == 'm') {
+                tagGender.html('Male')
+            }
+            else {
+                tagGender.html('?')
+            }
             let tagMarital = d3.selectAll(".demographic-tag.marital")
             tagMarital.html(d.value.marital.charAt(0).toUpperCase() + d.value.marital.slice(1))
             let tagParenthood = d3.selectAll(".demographic-tag.parenthood")
-            tagParenthood.html(d.value.parenthood == 'y' ? 'Parent' : 'Not Parent')
+            if (d.value.parenthood == 'y') {
+                tagParenthood.html('Parent')
+            }
+            else if (d.value.parenthood == 'n') {
+                tagParenthood.html('Not Parent')
+            }
+            else {
+                tagParenthood.html('?')
+            }
             let tagAge = d3.selectAll(".demographic-tag.age")
             tagAge.html('Age ' + d.value.age.slice(0, -2))
             let tagCountry = d3.selectAll(".demographic-tag.country")
             tagCountry.html(d.value.country)
             // modalFooter.html("Gender: " + d.value.gender + " | Marital: " + d.value.marital + " | Parenthood: " + d.value.parenthood + " | Country: " + d.value.country);
         })
+
+        function updateFilter() {
+            d3.selectAll("rect").attr("class", function (d) {
+                return isActive(d) ? "is-active" : "is-inactive"
+            });
+        }
+
+        function isActive(d) {
+            let filterFemaleIsChecked = $('input[type="checkbox"][id="customRadioFemale"]').prop("checked") == true;
+            let filterMaleIsChecked = $('input[type="checkbox"][id="customRadioMale"]').prop("checked") == true;
+            if (d.value.gender == "f" && !filterFemaleIsChecked) {
+                return false;
+            }
+            else if (d.value.gender == "m" && !filterMaleIsChecked) {
+                return false;
+            }
+
+            let filterSingleIsChecked = $('input[type="checkbox"][id="customRadioSingle"]').prop("checked") == true;
+            let filterMarriedIsChecked = $('input[type="checkbox"][id="customRadioMarried"]').prop("checked") == true;
+            let filterDivorcedIsChecked = $('input[type="checkbox"][id="customRadioDivorced"]').prop("checked") == true;
+            let filterSeparatedIsChecked = $('input[type="checkbox"][id="customRadioSeparated"]').prop("checked") == true;
+            let filterWidowedIsChecked = $('input[type="checkbox"][id="customRadioWidowed"]').prop("checked") == true;
+            if (d.value.marital == "single" && !filterSingleIsChecked) {
+                return false;
+            }
+            else if (d.value.marital == "married" && !filterMarriedIsChecked) {
+                return false;
+            }
+            else if (d.value.marital == "divorced" && !filterDivorcedIsChecked) {
+                return false;
+            }
+            else if (d.value.marital == "separated" && !filterSeparatedIsChecked) {
+                return false;
+            }
+            else if (d.value.marital == "widowed" && !filterWidowedIsChecked) {
+                return false;
+            }
+
+            let filterParentIsChecked = $('input[type="checkbox"][id="customRadioParent"]').prop("checked") == true;
+            let filterNotParentIsChecked = $('input[type="checkbox"][id="customRadioNotParent"]').prop("checked") == true;
+            if (d.value.parenthood == "y" && !filterParentIsChecked) {
+                return false;
+            }
+            else if (d.value.parenthood == "n" && !filterNotParentIsChecked) {
+                return false;
+            }
+
+            return true;
+        }
         // Initialize plot with category = affection
         update("affection");
 
