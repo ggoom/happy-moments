@@ -14,7 +14,7 @@ svg {
 }
 
 rect {
-    /* fill: white; */
+    fill: white;
     position: absolute;
 }
 
