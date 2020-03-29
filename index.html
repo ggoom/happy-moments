@@ -34,81 +34,96 @@
 
     <!-- Filters -->
     <div class="filter-container">
-        <h6>filters</h6>
+        <h6><b>filters</b></h6>
         <div class="items">
             <div class="gender-filters">
                 <div> gender </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filterFemale" type="checkbox">
-                    <label for="filterFemale">female </label>
+                    <input type="checkbox" id="filterFemale" name="filterFemale" class="custom-control-input" onclick="updateFilter()"
+                        checked checked>
+                    <label class="custom-control-label" for="filterFemale">female</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filterMale" type="checkbox">
-                    <label for="filterMale">male</label>
+                    <input id="filterMale" class="custom-control-input" type="checkbox" onclick="updateFilter()"
+                        checked>
+                    <label class="custom-control-label" for="filterMale">male</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filterOtherGender" type="checkbox">
-                    <label for="filterOtherGender">other</label>
+                    <input id="filterOtherGender" class="custom-control-input" type="checkbox" onclick="updateFilter()"
+                        checked>
+                    <label class="custom-control-label" for="filterOtherGender">other</label>
                 </div>
             </div>
 
             <div class="marital-filters">
                 <div>marital status</div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filterSingle" type="checkbox">
-                    <label for="filterSingle">single</label>
+                    <input id="filterSingle" type="checkbox" class="custom-control-input" onclick="updateFilter()"
+                        checked>
+                    <label class="custom-control-label" for="filterSingle">single</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filterMarried" type="checkbox">
-                    <label for="filterMarried">married</label>
+                    <input id="filterMarried" type="checkbox" class="custom-control-input" onclick="updateFilter()"
+                        checked>
+                    <label class="custom-control-label" for="filterMarried">married</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filterOtherMarital" type="checkbox">
-                    <label for="itefilterOtherMaritalm5">other</label>
+                    <input id="filterOtherMarital" type="checkbox" class="custom-control-input" onclick="updateFilter()"
+                        checked>
+                    <label class="custom-control-label" for="filterOtherMarital">other</label>
                 </div>
             </div>
 
             <div class="parenthood-filters">
                 <div>parenthood</div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filterParent" type="checkbox">
-                    <label for="filterParent">parent </label>
+                    <input id="filterParent" type="checkbox" class="custom-control-input" onclick="updateFilter()"
+                        checked>
+                    <label class="custom-control-label" for="filterParent">parent </label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filterNotParent" type="checkbox">
-                    <label for="filterNotParent">not parent</label>
+                    <input id="filterNotParent" type="checkbox" class="custom-control-input" onclick="updateFilter()"
+                        checked>
+                    <label class="custom-control-label" for="filterNotParent">not parent</label>
                 </div>
             </div>
 
             <div class="age-filters">
                 <div>age</div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filter21Under" type="checkbox">
-                    <label for="filter21Under"> 21 & under </label>
+                    <input id="filter21Under" type="checkbox" class="custom-control-input" onclick="updateFilter()"
+                        checked>
+                    <label class="custom-control-label" for="filter21Under"> 21 & under </label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filter22To25" type="checkbox">
-                    <label for="filter22To25">22-25</label>
+                    <input id="filter22To25" type="checkbox" class="custom-control-input" onclick="updateFilter()"
+                        checked>
+                    <label class="custom-control-label" for="filter22To25">22-25</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filter25To30" type="checkbox">
-                    <label for="filter25To30">25-30</label>
+                    <input id="filter25To30" type="checkbox" class="custom-control-input" onclick="updateFilter()"
+                        checked>
+                    <label class="custom-control-label" for="filter25To30">25-30</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filter30To35" type="checkbox">
-                    <label for="filter30To35">30-35</label>
+                    <input id="filter30To35" type="checkbox" class="custom-control-input" onclick="updateFilter()"
+                        checked>
+                    <label class="custom-control-label" for="filter30To35">30-35</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filter35To40" type="checkbox">
-                    <label for="filter35To40">35-40</label>
+                    <input id="filter35To40" type="checkbox" class="custom-control-input" onclick="updateFilter()"
+                        checked>
+                    <label class="custom-control-label" for="filter35To40">35-40</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filter40To50" type="checkbox">
-                    <label for="filter40To50">40-50</label>
+                    <input id="filter40To50" type="checkbox" class="custom-control-input" onclick="updateFilter()"
+                        checked>
+                    <label class="custom-control-label" for="filter40To50">40-50</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filter50Plus" type="checkbox">
-                    <label for="filter50Plus">50+</label>
+                    <input id="filter50Plus" type="checkbox" class="custom-control-input" onclick="updateFilter()"
+                        checked>
+                    <label class="custom-control-label" for="filter50Plus">50+</label>
                 </div>
 
             </div>
@@ -285,6 +300,7 @@
 
         }
 
+        // Category highlighintg
         $('.icon').on("mouseenter", function (e) {
             highlight($(this).attr('id'));
         });
@@ -302,6 +318,26 @@
         function unhighlight() {
             d3.selectAll("rect").attr("class", function (d) {
                 return d.predicted_category + " " + "is-active";
+            });
+        }
+
+        //Filters
+        function updateFilter() {
+            $('.custom-checkbox').css("background-color", function () {
+                if ($(this).find('input[type="checkbox"]').prop("checked")) {
+                    return "#eee"
+                }
+                else {
+                    return "#bbb"
+                }
+            });
+            $('.custom-checkbox').css("border", function () {
+                if ($(this).find('input[type="checkbox"]').prop("checked")) {
+                    return "solid 1px #ddd"
+                }
+                else {
+                    return "solid 1px #aaa"
+                }
             });
         }
 
