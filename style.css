@@ -178,13 +178,14 @@ div.tooltip {
     grid-column: 4;
 }
 
-.exercise {
+.enjoy_the_moment {
     grid-column: 5;
 }
 
-.enjoy_the_moment {
+.exercise {
     grid-column: 6;
 }
+
 
 .leisure {
     grid-column: 7;
