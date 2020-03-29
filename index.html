@@ -3,217 +3,147 @@
 
 <head>
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <!-- <script src="index.js"></script> -->
+    <script src="data.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
         crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="btn-group">
-        <button onclick="update('achievement')">ACHIEVEMENT</button>
-        <button onclick="update('affection')">AFFECTION</button>
-        <button onclick="update('leisure')">BONDING</button>
-        <button onclick="update('enjoy_the_moment')">ENJOY THE MOMENT</button>
-        <button onclick="update('exercise')">EXERCISE</button>
-        <button onclick="update('leisure')">LEISURE</button>
-        <button onclick="update('nature')">NATURE</button>
-    </div>
+    <!-- Icons -->
+    <img class="icon achievement" src="achievement.svg" height="40" width="40">
+    <img class="icon affection" src="affection.svg" height="40" width="40">
+    <img class="icon bonding" src="bonding.svg" height="50" width="40">
+    <img class="icon enjoy_the_moment" src="enjoy_the_moment.svg" height="35" width="35">
+    <img class="icon exercise" src="exercise.svg" height="40" width="40">
+    <img class="icon leisure" src="leisure.svg" height="40" width="40">
+    <img class="icon nature" src="nature.svg" height="40" width="40">
+
+    <div class="icon-text achievement">achievement</div>
+    <div class="icon-text affection">affection</div>
+    <div class="icon-text bonding">bonding</div>
+    <div class="icon-text enjoy_the_moment">enjoy the moment</div>
+    <div class="icon-text exercise">exercise</div>
+    <div class="icon-text leisure">leisure</div>
+    <div class="icon-text nature">nature</div>
 
 
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"></h4>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <div class="demographic-tag gender"></div>
-                    <div class="demographic-tag marital"></div>
-                    <div class="demographic-tag parenthood"></div>
-                    <div class="demographic-tag age"></div>
-                    <div class="demographic-tag country"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
     <script>
-        // Set some variables here
-        const minAge = 18;
-        const maxAge = 84;
-        const maxNum = 80;
+        const squareSize = 20; // length of a side of a square
+        const strokeWidth = .5;
+        const numPerRow = 40;
+        const numPerCol = 30;
+        const w = (squareSize + (strokeWidth * 2)) * numPerRow; // width of svg
+        const h = (squareSize + (strokeWidth * 2)) * numPerCol; // height of svg
+        const margin = {top: 5,
+                        right: 5,
+                        bottom: 5,
+                        left: 5,
+                        }
+        const colorMap = {"achievement": "#ffdca9",
+                            "affection": "#fdc7d7",
+                            "bonding" : "#fce3f0",
+                            "enjoy_the_moment": "#d3c7e9",
+                            "exercise": "#b3cde3",
+                            "leisure": "#beebe9",
+                            "nature": "#c5f1c5",
+                            }
 
-        var margin = { top: 20, right: 15, bottom: 60, left: 15 }
-            , width = 1100 - margin.left - margin.right
-            , height = 600 - margin.top - margin.bottom;
+                        
+        // Create the svg
+        var svg = d3.select("body").append('svg')
+                    .attr('class', 'chart')
+                    .attr('width', w + margin.left + margin.right)
+                    .attr('height', h + margin.top + margin.bottom)
+                    .append('g')
+                    .attr('transform', `translate(${margin.left}, ${margin.top})`)
+                    .call(render)
 
-        var x = d3.scaleLinear()
-            .domain([minAge, maxAge])
-            .range([0, width])
-        var y = d3.scaleLinear()
-            .domain([0, maxNum])
-            .range([height, 0]);
-
-        var chart = d3.select('body')
-            .append('svg')
-            .attr('width', width + margin.right + margin.left)
-            .attr('height', height + margin.top + margin.bottom)
-            .attr('class', 'chart')
-
-        var main = chart.append('g')
-            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-            .attr('width', width)
-            .attr('height', height)
-            .attr('class', 'main')
-
-        // draw the x axis
-        var xAxis = d3.axisBottom(x).tickPadding(6).tickSize(0);
-
-        main.append('g')
-            .attr('transform', 'translate(0,' + (height + 8.5) + ')')
-            .attr('class', 'main axis date')
-            .call(xAxis);
-
-        main.append("text")
-            .attr("transform", "translate(" + (width / 2) + " ," + (height + 40) + ")")
-            .style("text-anchor", "middle")
-            .attr('class', 'axis-label')
-            .text("Age");
-
-        // draw the y axis
-        var yAxis = d3.axisLeft(y).tickSize(0);
-
-        // main.append('g')
-        //     .attr('transform', 'translate(0,0)')
-        //     .attr('class', 'main axis date')
-        //     .call(yAxis);
+        // Create scale
+        const scale = d3.scaleLinear()
+            .domain([0, numPerRow])
+            .range([0, w])
 
         // TOOLTIP
         // define the div for the tooltip
-        var div = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0)
-
-        //tooltip
-        // Define the div for the tooltip
         var tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
-            .style("opacity", 0);
+            .style("opacity", 0)
+            
 
-        var container = main.append("g")
+        function render (sel) {
+            d3.csv("happy_moments_small_sample.csv").then(function (data) {
+                var data = data.sort((d1, d2) => (d1.predicted_category > d2.predicted_category) ? 1 : -1);
+                var data = data.slice(102);
+                const squares = sel.selectAll('rect')
+                                .data(data, function(d) {return d.hmid;})
 
-        function update(category) {
-            // Load in data from csv
-            d3.csv("happy_moments_sampled_data_4000.csv").then(function (raw_data) {
-                var data = raw_data.filter(function (d) { return d.predicted_category === category; });
 
-                var dataByAge = d3.nest()
-                    .key(function (d) { return d.age; }).sortKeys(d3.ascending)
-                    .entries(data);
-                // console.log(JSON.stringify(dataByAge));
-
-                container.selectAll("g").remove() //clear container for new data
-                container.selectAll("g")
-                    .data(dataByAge, function (d) { return d.hmid; })
-                    .enter().append("g")
-                    .attr("class", "year")
-                    .attr("transform", function (d, i) { return `translate(${x(d.key)}, 0)`; })
-                    .each(function (year, j) {
-                        var thisYear = d3.select(this)
-                            .selectAll('rect')
-                            .data(d3.entries(d3.entries(dataByAge[j])[1].value), function (d) { return d.hmid; });
-
-                        thisYear.enter().append("rect")
-                            .attr("transform", function (d, i) { return `translate(0, ${y(i)})`; })
-                            .attr("x", 0)
-                            .attr("y", 0)
-                            .attr("rx", .7)
-                            .attr("ry", .7)
-                            .attr("height", 5)
-                            .attr("width", 12)
-                            .attr("data-toggle", "modal")
-                            .attr("data-target", "#myModal")
-                            .on("mouseover", function (d) {
-                                // highlight rect 
-                                d3.select(this).style("fill", function () {
-                                    return d3.color('#F4D076');
-                                });
-                                // make rect expand
-                                var w = +d3.select(this).attr("width");
-                                d3.select(this).attr("x", +d3.select(this).attr("x") - .5).attr("width", w + 1);
-                                var h = +d3.select(this).attr("height");
-                                d3.select(this).attr("y", +d3.select(this).attr("y") - .5).attr("height", h + 1);
-                                // tooltip
-                                tooltip.transition()
-                                    .duration(30)
-                                    .style("opacity", 1)
-                                tooltip.html("&ldquo;" + d.value.cleaned_hm + "&rdquo;")
-                                    .style("left", (d3.event.pageX + 15) + "px")
-                                    .style("top", (d3.event.pageY - 20) + "px");
-                                //data for modal
-                                d3.select(this).attr("class", "info").datum(d).style("cursor", "pointer");
-                            })
-                            .on("mouseout", function (d) {
-                                // unhighlight color
-                                d3.select(this).style("fill", function () {
-                                    return d3.color('#90B5BF');
-                                });
-                                // change size back to normal
-                                var w = +d3.select(this).attr("width");
-                                d3.select(this).attr("x", +d3.select(this).attr("x") + .5).attr("width", w - 1);
-                                var h = +d3.select(this).attr("height");
-                                d3.select(this).attr("y", +d3.select(this).attr("y") + .5).attr("height", h - 1);
-                                // tooltip
-                                tooltip.transition()
-                                    .duration(30)
-                                    .style("opacity", 0);
-                                d3.select(this).attr("class", null)
-                            });
+                squares.enter().append('rect')
+                    .attr("class", (d) => {return d.predicted_category;})
+                    .attr('x', (d, i) => {
+                        const n = i % numPerRow;
+                        return scale(n);
                     })
+                    .attr('y', (d, i) => {
+                        const n = Math.floor(i / numPerRow);
+                        return scale(n);
+                    })
+                    .attr('ry', 1)
+                    .attr('rx', 1)
+                    .attr('width', squareSize)
+                    .attr('height', squareSize)
+                    .attr('stroke-width', strokeWidth)
+                    .attr('stroke', 'white')
+                    .on("mouseover", handleMouseOver)
+                    .on("mouseout", handleMouseOut);
+
+                // join.exit().remove()
+
+
+                function handleMouseOver(d) {
+                    // highlight rect 
+                    d3.select(this).style("fill", function (d) {return colorMap[d.predicted_category];});
+                    d3.select(this).style("stroke", "black");
+                    d3.select(this).style("stroke-width", "1.5px");
+                    // make rect expand
+                    var width = +d3.select(this).attr("width");
+                    d3.select(this).attr("x", +d3.select(this).attr("x") - .5).attr("width", width + 1);
+                    var height = +d3.select(this).attr("height");
+                    d3.select(this).attr("y", +d3.select(this).attr("y") - .5).attr("height", height + 1);
+                    // tooltip
+                    tooltip.transition()
+                        .duration(30)
+                        .style("opacity", 1)
+                    tooltip.html("&ldquo;" + d.cleaned_hm + "&rdquo;")
+                        .style("left", (d3.event.pageX + 20) + "px")
+                        .style("top", (d3.event.pageY - 20) + "px");
+                    //data for modal
+                    d3.select(this).attr("class", "info").datum(d).style("cursor", "pointer");
+                }
+
+
+                function handleMouseOut(d) {
+                    // unhighlight color
+                    d3.select(this).style("stroke", "white");
+                    d3.select(this).style("stroke-width", "1px");
+                    d3.select(this).style("fill", function (d) {return colorMap[d.predicted_category];});
+                    // change size back to normal
+                    var width = +d3.select(this).attr("width");
+                    d3.select(this).attr("x", +d3.select(this).attr("x") + .5).attr("width", width - 1);
+                    var height = +d3.select(this).attr("height");
+                    d3.select(this).attr("y", +d3.select(this).attr("y") + .5).attr("height", height - 1);
+                    // tooltip
+                    tooltip.transition()
+                        .duration(30)
+                        .style("opacity", 0);
+                    d3.select(this).attr("class", null)
+                }
             });
         }
-        // open modal dialogue on click
-        $('#myModal').on('show.bs.modal', function (d) {
-            var d = d3.select(".info").data().pop();
-            let modalTitle = d3.selectAll("h4.modal-title");
-            // modalTitle.text("test");
-            let modalBody = d3.selectAll(".modal-body");
-            modalBody.html("&ldquo;" + d.value.cleaned_hm + "&rdquo;");
-            let modalFooter = d3.selectAll(".modal-footer");
-            //tags
-            let tagGender = d3.selectAll(".demographic-tag.gender")
-            tagGender.html(d.value.gender == 'f' ? 'Female' : 'Male')
-            let tagMarital = d3.selectAll(".demographic-tag.marital")
-            tagMarital.html(d.value.marital.charAt(0).toUpperCase() + d.value.marital.slice(1))
-            let tagParenthood = d3.selectAll(".demographic-tag.parenthood")
-            tagParenthood.html(d.value.parenthood == 'y' ? 'Parent' : 'Not Parent')
-            let tagAge = d3.selectAll(".demographic-tag.age")
-            tagAge.html('Age ' + d.value.age.slice(0, -2))
-            let tagCountry = d3.selectAll(".demographic-tag.country")
-            tagCountry.html(d.value.country)
-            // modalFooter.html("Gender: " + d.value.gender + " | Marital: " + d.value.marital + " | Parenthood: " + d.value.parenthood + " | Country: " + d.value.country);
-        })
-        // Initialize plot with category = affection
-        update("affection");
-
-
-        var remove = d3.transition()
-            .attr("delay", function (d, i) { return 100000000 * i; })
-            .attr("fill", "white")
-            .end();
         
-        var append = d3.transition()
-            .attr("delay", function (d, i) { return 100000000 * i; })
-            .attr("fill", "lightslategray");
-
     </script>
 
 </body>
