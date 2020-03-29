@@ -14,7 +14,8 @@ svg {
 }
 
 rect {
-    fill: white;
+    /* fill: white; */
+    position: absolute;
 }
 
 
@@ -23,12 +24,12 @@ div.tooltip {
     position: absolute;			
     text-align: left;
     display: inline-block;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 20rem;
-    height: 2.5rem;								
+    /* text-overflow: ellipsis; */
+    /* overflow: hidden; */
+    /* white-space: nowrap; */
+    /* overflow: hidden; */
+    max-width: 20rem;
+    min-height: 2.5rem;								
     padding: .6rem;
     color: gray;	
     /* font: .8rem sans-serif;*/
@@ -104,12 +105,12 @@ div.tooltip {
 
 .is-active {
     opacity: 100%;
-    transition: opacity .1s;
+    /* transition: opacity .1s; */
   }
 
 .is-inactive {
     opacity: 30%;
-    transition: opacity .1s;
+    /* transition: opacity .1s; */
 }
 
 
@@ -163,7 +164,7 @@ div.tooltip {
 .icon:hover {
     transform: scale(1.1);
     transition: 500;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .achievement {
@@ -193,5 +194,3 @@ div.tooltip {
 .nature {
     grid-column: 8;
 }
-
-
