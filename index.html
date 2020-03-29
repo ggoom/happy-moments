@@ -12,6 +12,9 @@
 </head>
 
 <body>
+    <!-- Header -->
+    <div class="header"> what makes you happy? </div>
+
     <!-- Icons -->
     <img class="icon achievement" src="achievement.svg" height="40" width="40">
     <img class="icon affection" src="affection.svg" height="40" width="40">
@@ -29,7 +32,119 @@
     <div class="icon-text leisure">leisure</div>
     <div class="icon-text nature">nature</div>
 
+    <!-- Filters -->
+    <div class="filter-container">
+        <h6>filters</h6>
+        <div class="items">
+            <div class="gender-filters"> 
+                <div> gender </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filterFemale" type="checkbox">
+                    <label for="filterFemale">female </label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filterMale" type="checkbox">
+                    <label for="filterMale">male</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filterOtherGender" type="checkbox">
+                    <label for="filterOtherGender">other</label>
+                </div>
+            </div>
 
+            <div class="marital-filters">
+                <div>marital status</div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filterSingle" type="checkbox">
+                    <label for="filterSingle">single</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filterMarried" type="checkbox">
+                    <label for="filterMarried">married</label>  
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filterOtherMarital" type="checkbox">
+                    <label for="itefilterOtherMaritalm5">other</label>
+                </div>
+            </div>
+
+            <div class="parenthood-filters"> 
+                <div>parenthood</div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filterParent" type="checkbox">
+                    <label for="filterParent">parent </label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filterNotParent" type="checkbox">
+                    <label for="filterNotParent">not parent</label>
+                </div>
+            </div>
+
+            <div class="age-filters"> 
+                <div>age</div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filter21Under" type="checkbox">
+                    <label for="filter21Under"> 21 & under </label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filter22To25" type="checkbox">
+                    <label for="filter22To25">22-25</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                        <input id="filter25To30" type="checkbox">
+                        <label for="filter25To30">25-30</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filter30To35" type="checkbox">
+                    <label for="filter30To35">30-35</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filter35To40" type="checkbox">
+                    <label for="filter35To40">35-40</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                        <input id="filter40To50" type="checkbox">
+                        <label for="filter40To50">40-50</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filter50Plus" type="checkbox">
+                    <label for="filter50Plus">50+</label>
+                </div>
+
+            </div>
+        
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-12 modal-title">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <div class="demographic-tag gender"></div>
+                    <div class="demographic-tag marital"></div>
+                    <div class="demographic-tag parenthood"></div>
+                    <div class="demographic-tag age"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+    
+    <!-- Render script -->
     <script>
         const squareSize = 20; // length of a side of a square
         const strokeWidth = .5;
@@ -82,7 +197,6 @@
 
 
                 squares.enter().append('rect')
-                    .attr("class", (d) => {return d.predicted_category;})
                     .attr('x', (d, i) => {
                         const n = i % numPerRow;
                         return scale(n);
@@ -98,9 +212,13 @@
                     .attr('stroke-width', strokeWidth)
                     .attr('stroke', 'white')
                     .on("mouseover", handleMouseOver)
-                    .on("mouseout", handleMouseOut);
+                    .on("mouseout", handleMouseOut)
+                    .attr("data-toggle", "modal")
+                    .attr("data-target", "#myModal")
+                    .transition().delay(function(d, i) {return .6 * i;})
+                    .attr("class", (d) => {return d.predicted_category;});
 
-                // join.exit().remove()
+                // squares.exit().remove()
 
 
                 function handleMouseOver(d) {
@@ -142,6 +260,27 @@
                     d3.select(this).attr("class", null)
                 }
             });
+
+            // open modal dialogue on click
+            $('#myModal').on('show.bs.modal', function (d) {
+                var d = d3.select(".info").data().pop();
+                let modalTitle = d3.selectAll(".modal-title");
+                modalTitle.html(d.predicted_category.toUpperCase().replace(/_/g, " "));
+                let modalBody = d3.selectAll(".modal-body");
+                modalBody.html("&ldquo;" + d.cleaned_hm + "&rdquo;");
+                let modalFooter = d3.selectAll(".modal-footer");
+                //tags
+                let tagGender = d3.selectAll(".demographic-tag.gender")
+                tagGender.html(d.gender == 'f' ? 'female' : (d.gender == 'm' ? 'male' : 'other'))
+                let tagMarital = d3.selectAll(".demographic-tag.marital")
+                tagMarital.html(d.marital)
+                let tagParenthood = d3.selectAll(".demographic-tag.parenthood")
+                tagParenthood.html(d.parenthood == 'y' ? 'parent' : 'not parent')
+                let tagAge = d3.selectAll(".demographic-tag.age")
+                tagAge.html('age ' + d.age.slice(0, -2))
+                // modalFooter.html("Gender: " + d.value.gender + " | Marital: " + d.value.marital + " | Parenthood: " + d.value.parenthood + " | Country: " + d.value.country);
+            })
+
         }
         
     </script>
