@@ -14,23 +14,25 @@
 <body>
     <!-- Header -->
     <div class="header"> what makes you happy? </div>
+    <div class="header-small-1"> explore 100,000 moments of happiness by hovering over the pixels and icons.</div>
+    <div class="header-small-2">play with filters to see what makes different people happy!</div>
 
     <!-- Icons -->
     <img class="icon achievement" id="achievement" src="achievement.svg" height="40" width="40">
     <img class="icon affection" id="affection" src="affection.svg" height="40" width="40">
-    <img class="icon bonding" id="bonding" src="bonding.svg" height="50" width="40">
+    <img class="icon bonding" id="bonding" src="bonding.svg" height="45" width="45">
     <img class="icon enjoy_the_moment" id="enjoy_the_moment" src="enjoy_the_moment.svg" height="35" width="35">
-    <img class="icon exercise" id="exercise" src="exercise.svg" height="40" width="40">
+    <img class="icon exercise" id="exercise" src="exercise.png" height="35" width="45">
     <img class="icon leisure" id="leisure" src="leisure.svg" height="40" width="40">
-    <img class="icon nature" id="nature" src=" nature.svg" height="40" width="40">
+    <img class="icon nature" id="nature" src="nature.png" height="40" width="40">
 
-    <div class="icon-text achievement">achievement</div>
-    <div class="icon-text affection">affection</div>
-    <div class="icon-text bonding">bonding</div>
-    <div class="icon-text enjoy_the_moment">enjoy the moment</div>
-    <div class="icon-text exercise">exercise</div>
-    <div class="icon-text leisure">leisure</div>
-    <div class="icon-text nature">nature</div>
+    <div class="icon-text achievement" id="icon-text achievement">achievement</div>
+    <div class="icon-text affection" id="icon-text affection">affection</div>
+    <div class="icon-text bonding" id="icon-text bonding">bonding</div>
+    <div class="icon-text enjoy_the_moment" id="icon-text enjoy_the_moment">enjoy the moment</div>
+    <div class="icon-text exercise" id="icon-text exercise">exercise</div>
+    <div class="icon-text leisure" id="icon-text leisure">leisure</div>
+    <div class="icon-text nature" id="icon-text nature">nature</div>
 
     <!-- Filters -->
     <div class="filter-container">
@@ -39,18 +41,15 @@
             <div class="gender-filters">
                 <div> gender </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input type="checkbox" id="filterFemale" name="filterFemale" class="custom-control-input" onclick="updateFilter(); render();"
-                        checked checked>
+                    <input type="checkbox" id="filterFemale" name="filterFemale" class="custom-control-input" onclick="updateFilter(); render();">
                     <label class="custom-control-label" for="filterFemale">female</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filterMale" class="custom-control-input" type="checkbox" onclick="updateFilter(); render();"
-                        checked>
+                    <input id="filterMale" class="custom-control-input" type="checkbox" onclick="updateFilter(); render();">
                     <label class="custom-control-label" for="filterMale">male</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filterOtherGender" class="custom-control-input" type="checkbox" onclick="updateFilter(); render();"
-                        checked>
+                    <input id="filterOtherGender" class="custom-control-input" type="checkbox" onclick="updateFilter(); render();">
                     <label class="custom-control-label" for="filterOtherGender">other</label>
                 </div>
             </div>
@@ -58,18 +57,15 @@
             <div class="marital-filters">
                 <div>marital status</div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filterSingle" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
-                        checked>
+                    <input id="filterSingle" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();">
                     <label class="custom-control-label" for="filterSingle">single</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filterMarried" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
-                        checked>
+                    <input id="filterMarried" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();">
                     <label class="custom-control-label" for="filterMarried">married</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filterOtherMarital" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
-                        checked>
+                    <input id="filterOtherMarital" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();">
                     <label class="custom-control-label" for="filterOtherMarital">other</label>
                 </div>
             </div>
@@ -77,13 +73,11 @@
             <div class="parenthood-filters">
                 <div>parenthood</div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filterParent" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
-                        checked>
+                    <input id="filterParent" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();">
                     <label class="custom-control-label" for="filterParent">parent </label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filterNotParent" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
-                        checked>
+                    <input id="filterNotParent" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();">
                     <label class="custom-control-label" for="filterNotParent">not parent</label>
                 </div>
             </div>
@@ -91,38 +85,31 @@
             <div class="age-filters">
                 <div>age</div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filter21Under" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
-                        checked>
+                    <input id="filter21Under" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();">
                     <label class="custom-control-label" for="filter21Under"> 21 & under </label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filter22To25" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
-                        checked>
+                    <input id="filter22To25" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();">
                     <label class="custom-control-label" for="filter22To25">22-25</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filter25To30" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
-                        checked>
+                    <input id="filter25To30" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();">
                     <label class="custom-control-label" for="filter25To30">26-30</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filter30To35" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
-                        checked>
+                    <input id="filter30To35" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();">
                     <label class="custom-control-label" for="filter30To35">31-35</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filter35To40" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
-                        checked>
+                    <input id="filter35To40" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();">
                     <label class="custom-control-label" for="filter35To40">36-40</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filter40To50" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
-                        checked>
+                    <input id="filter40To50" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();">
                     <label class="custom-control-label" for="filter40To50">41-50</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="filter50Plus" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
-                        checked>
+                    <input id="filter50Plus" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();">
                     <label class="custom-control-label" for="filter50Plus">51+</label>
                 </div>
 
@@ -176,7 +163,7 @@
         const colorMap = {
             "achievement": "#ffdca9",
             "affection": "#fdc7d7",
-            "bonding" : "#fce3f0",
+            "bonding" : "#F7B5E7",
             "enjoy_the_moment": "#d3c7e9",
             "exercise": "#b3cde3",
             "leisure": "#beebe9",
@@ -253,16 +240,11 @@
                     d3.select(this).style("fill", function (d) { return colorMap[d.predicted_category]; });
                     d3.select(this).style("stroke", "gray");
                     d3.select(this).style("stroke-width", "1.5px");
-                    // // make rect expand
-                    // var width = +d3.select(this).attr("width");
-                    // d3.select(this).attr("x", +d3.select(this).attr("x") - .5).attr("width", width + 1);
-                    // var height = +d3.select(this).attr("height");
-                    // d3.select(this).attr("y", +d3.select(this).attr("y") - .5).attr("height", height + 1);
                     // tooltip
                     tooltip.transition()
                         .duration(30)
                         .style("opacity", 1)
-                    tooltip.html("&ldquo;" + d.cleaned_hm + "&rdquo;")
+                    tooltip.html("&ldquo;" + d.cleaned_hm + "&rdquo;" + "<br> <br> <div class='tooltip-footer'> CLICK TO SEE MORE </div>")
                         .style("left", (d3.event.pageX + 20) + "px")
                         .style("top", (d3.event.pageY - 20) + "px");
                     //data for modal
@@ -275,11 +257,6 @@
                     d3.select(this).style("stroke", "white");
                     d3.select(this).style("stroke-width", "0px");
                     d3.select(this).style("fill", function (d) { return colorMap[d.predicted_category]; });
-                    // // change size back to normal
-                    // var width = +d3.select(this).attr("width");
-                    // d3.select(this).attr("x", +d3.select(this).attr("x") + .5).attr("width", width - 1);
-                    // var height = +d3.select(this).attr("height");
-                    // d3.select(this).attr("y", +d3.select(this).attr("y") + .5).attr("height", height - 1);
                     // tooltip
                     tooltip.transition()
                         .duration(30)
@@ -393,13 +370,14 @@
         // Category highlighintg
         $('.icon').on("mouseenter", function (e) {
             highlight($(this).attr('id'));
+            showText($(this).attr('id'))
         });
         $('.icon').on("mouseleave", function (e) {
             unhighlight()
+            hideText($(this).attr('id'))
         });
 
         function highlight(category) {
-            console.log(category)
             d3.selectAll("rect").attr("class", function (d) {
                 return d.predicted_category + " " + (d.predicted_category == category ? "is-active" : "is-inactive");
             });
@@ -411,6 +389,14 @@
             });
         }
 
+        function showText(category) {
+            document.getElementById("icon-text " + category).classList.add('text-is-active');
+        }
+
+        function hideText(category) {
+            document.getElementsByClassName("text-is-active")[0].classList.remove('text-is-active');
+        }
+        
     </script>
 
 </body>
