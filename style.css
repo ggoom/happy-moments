@@ -1,18 +1,16 @@
 body {
     display: grid;
-    grid-template-rows: 135px 50px 20px auto;
-    grid-template-columns: 180px 121px 121px 121px 121px 121px 121px 121px auto;
+    grid-template-rows: 120px 18px 50px auto;
+    grid-template-columns: 150px 121px 121px 121px 121px 121px 121px 121px auto;
     justify-content: center;
     align-content: center;
     font-family: 'Roboto Mono', monospace;
     color: gray;
 }
-
 svg {
     grid-row: 4;
     grid-column: 2 / 8;
 }
-
 rect {
     fill: white;
     position: absolute;
@@ -39,8 +37,11 @@ div.tooltip {
     border-radius: 1px;			
     pointer-events: none;	
     box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
-    font-family: 'Roboto Mono', monospace;
-		
+    font-family: 'Roboto Mono', monospace;		
+}
+.tooltip-footer {
+    color: lightgray;
+    font-size: 12px;
 }
 
 /* Modal bootstrap override */
@@ -49,28 +50,23 @@ div.tooltip {
     background-color: #eeeeee;
     border: solid 1px #ddd;
 }
-
 .modal-content {
     padding: 1rem;
     border-radius: 0px !important;
     border: none;
 }
-
 .modal-header {
     border: 0px;
     padding: 0px;
 }
-
 .modal-body {
     text-align: left;
 }
-
 .modal-footer {
     border: 0px;
     justify-content: flex-start;
     font-size: .8rem;
 }
-
 .modal-title {
     color: gray;
     font-size: .8rem;
@@ -82,81 +78,75 @@ div.tooltip {
 .heading {
     grid-row: 1;
     grid-column: 2 / 9;
+    justify-self: center;
+    align-self: flex-end;
+    font-size: 30px;
     color: gray;
-    margin: 1rem 0 1rem 0;
+    margin: 1rem 0 .5rem 0;
 }
-
 .header {
     font-size: 30px;
-    /* justify-self: center; */
-    /* align-self: center; */
+}
+.subheader {
+    font-size: .7rem;
 }
 
-.subheader {
-    font-size: .65rem;
-    /* justify-self: center;
-    align-self: center; */
-}
 
 /* Filters */
 .filter-container {
     grid-column: 1;
-    grid-row: 3 / 4;
-    /* font-size: 12px; */
-    transform: scale(0.8);
+    grid-row: 2 / 4;
+    font-size: 12px;
 }
-
 .custom-control {
-    padding: 7px 12px 7px 35px;
-    background-color: #eee;
-    border: solid 1px #ddd;
-    /* border-radius: 2rem; */
+    padding: 7px 14px 7px 37px;
+    background-color: #e0e0e0;
+    border: solid 1px rgb(214, 214, 214)
 }
 .custom-control-inline {
     margin: 0.2rem 0rem;
 }
-
-.is-active {
-    opacity: 100%;
-    /* transition: opacity .1s; */
-  }
-
-.is-inactive {
-    opacity: 30%;
-    /* transition: opacity .1s; */
+.custom-control-label::before,
+.custom-control-label::after {
+    width: 12px;
+    height: 12px;
+    background-color: lightgray;
 }
-
-input[type="checkbox"] + label span:hover  {
-    cursor: pointer;
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: gray!important;
+}  
+.custom-checkbox .custom-control-input:checked:focus ~ .custom-control-label::before {
+    box-shadow: none;
 }
 
 
 /* Categories */
 
+.is-active {
+    opacity: 100%;
+  }
+.is-inactive {
+    opacity: 20%;
+}
+
 .achievement {
     fill: #ffdca9;
 }
-
 .affection {
     fill: #fdc7d7;
 }
-
 .bonding {
-    fill: #ECC1E2;
+    fill: #F7B5E7;
 }
-
 .enjoy_the_moment {
     fill: #d3c7e9;
 }
-
 .exercise {
     fill: #b3cde3;
 }
-
 .leisure {
     fill: #beebe9;
 }
-
 .nature {
     fill: #c5f1c5;
 }
@@ -168,47 +158,48 @@ input[type="checkbox"] + label span:hover  {
     size: 40;
     justify-self: center;
     align-self: center;
-    grid-row: 2;
-}
-
-.icon-text {
     grid-row: 3;
+}
+.icon-text {
+    grid-row: 2;
     justify-self: center;
     font-size: 12px;
     color: gray;
+    opacity: 0;
 }
-
 .icon:hover {
     transform: scale(1.1);
     transition: 500;
     /* cursor: pointer; */
 }
+.text-is-active {
+    opacity: 100%;
+    transition: opacity .1s;
+}
+.text-is-inactive {
+    opacity: 0%;
+    transition: opacity .1s;
+}
+
 
 .achievement {
     grid-column: 2;
 }
-
 .affection {
     grid-column: 3;
 }
-
 .bonding {
     grid-column: 4;
 }
-
 .enjoy_the_moment {
     grid-column: 5;
 }
-
 .exercise {
     grid-column: 6;
 }
-
-
 .leisure {
     grid-column: 7;
 }
-
 .nature {
     grid-column: 8;
 }
@@ -218,7 +209,7 @@ input[type="checkbox"] + label span:hover  {
     position: fixed;
     bottom: 0;
     right: 0;
-    margin: 1rem;
+    margin: 1.5rem;
     height: 40;
     size: 40;
     justify-self: center;
@@ -226,7 +217,7 @@ input[type="checkbox"] + label span:hover  {
   }
 
   .about-icon-text {
-    grid-row: 3;
+    grid-row: 1;
     justify-self: center;
     font-size: 12px;
     color: gray;
