@@ -15,6 +15,7 @@ svg {
 
 rect {
     fill: white;
+    position: absolute;
 }
 
 
@@ -23,12 +24,12 @@ div.tooltip {
     position: absolute;			
     text-align: left;
     display: inline-block;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 20rem;
-    height: 2.5rem;								
+    /* text-overflow: ellipsis; */
+    /* overflow: hidden; */
+    /* white-space: nowrap; */
+    /* overflow: hidden; */
+    max-width: 20rem;
+    min-height: 2.5rem;								
     padding: .6rem;
     color: gray;	
     /* font: .8rem sans-serif;*/
@@ -95,9 +96,10 @@ div.tooltip {
 }
 
 .custom-control {
-    padding: 8px 8px 0px 8px;
-    background-color: #eeeeee;
+    padding: 7px 14px 7px 37px;
+    background-color: #eee;
     border: solid 1px #ddd;
+    /* border-radius: 2rem; */
 }
 .custom-control-inline {
     margin: 0.2rem 0rem;
@@ -105,12 +107,12 @@ div.tooltip {
 
 .is-active {
     opacity: 100%;
-    transition: opacity .1s;
+    /* transition: opacity .1s; */
   }
 
 .is-inactive {
     opacity: 30%;
-    transition: opacity .1s;
+    /* transition: opacity .1s; */
 }
 
 input[type="checkbox"] + label span:hover  {
@@ -168,7 +170,7 @@ input[type="checkbox"] + label span:hover  {
 .icon:hover {
     transform: scale(1.1);
     transition: 500;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .achievement {
@@ -199,5 +201,3 @@ input[type="checkbox"] + label span:hover  {
 .nature {
     grid-column: 8;
 }
-
-
