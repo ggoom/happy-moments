@@ -3,213 +3,450 @@
 
 <head>
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <!-- <script src="index.js"></script> -->
+    <script src="data.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
         crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="d3chart"></div>
-    <div class="btn-group">
-        <button class="category achievement" onclick="update('achievement')">Achievement</button>
-        <button class="category affection" onclick="update('affection')">Affection</button>
-        <button class="category bonding" onclick="update('bonding')">Bonding</button>
-        <button class="category enjoy_the_moment" onclick="update('enjoy_the_moment')">Enjoy the Moment</button>
-        <button class="category exercise" onclick="update('exercise')">Exercise</button>
-        <button class="category leisure" onclick="update('leisure')">Leisure</button>
-        <button class="category nature" onclick="update('nature')">Nature</button>
+    <!-- Header -->
+    <div class="heading">
+        <div class="header"> happy moments </div>
+        <div class="subheader"> "what made you happy today?" explore responses to this question from thousands of
+            humans, across demographics. this data was sourced from HappyDB, a crowd-sourced database of 100,000 happy
+            moments. each moment was sorted into one of seven categories, the distribution of which is reflected in the
+            relative sizes of the categories below.
+            <br> click the filters in the left sidebar to see moments from different demographics :)</div>
     </div>
 
+    <!-- Icons -->
+    <img class="icon achievement" id="achievement" src="achievement.svg" height="40" width="40">
+    <img class="icon affection" id="affection" src="affection.svg" height="40" width="40">
+    <img class="icon bonding" id="bonding" src="bonding.svg" height="50" width="40">
+    <img class="icon enjoy_the_moment" id="enjoy_the_moment" src="enjoy_the_moment.svg" height="35" width="35">
+    <img class="icon exercise" id="exercise" src="exercise.svg" height="40" width="40">
+    <img class="icon leisure" id="leisure" src="leisure.svg" height="40" width="40">
+    <img class="icon nature" id="nature" src=" nature.svg" height="40" width="40">
 
+    <div class="icon-text achievement">achievement</div>
+    <div class="icon-text affection">affection</div>
+    <div class="icon-text bonding">bonding</div>
+    <div class="icon-text enjoy_the_moment">enjoy the moment</div>
+    <div class="icon-text exercise">exercise</div>
+    <div class="icon-text leisure">leisure</div>
+    <div class="icon-text nature">nature</div>
+
+    <!-- Filters -->
+    <div class="filter-container">
+        <h6><b>filters</b></h6>
+        <div class="items">
+            <div class="gender-filters">
+                <div> gender </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input type="checkbox" id="filterFemale" name="filterFemale" class="custom-control-input" onclick="updateFilter(); render();"
+                        checked checked>
+                    <label class="custom-control-label" for="filterFemale">female</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filterMale" class="custom-control-input" type="checkbox" onclick="updateFilter(); render();"
+                        checked>
+                    <label class="custom-control-label" for="filterMale">male</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filterOtherGender" class="custom-control-input" type="checkbox" onclick="updateFilter(); render();"
+                        checked>
+                    <label class="custom-control-label" for="filterOtherGender">other</label>
+                </div>
+            </div>
+
+            <div class="marital-filters">
+                <div>marital status</div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filterSingle" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
+                        checked>
+                    <label class="custom-control-label" for="filterSingle">single</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filterMarried" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
+                        checked>
+                    <label class="custom-control-label" for="filterMarried">married</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filterOtherMarital" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
+                        checked>
+                    <label class="custom-control-label" for="filterOtherMarital">other</label>
+                </div>
+            </div>
+
+            <div class="parenthood-filters">
+                <div>parenthood</div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filterParent" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
+                        checked>
+                    <label class="custom-control-label" for="filterParent">parent </label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filterNotParent" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
+                        checked>
+                    <label class="custom-control-label" for="filterNotParent">not parent</label>
+                </div>
+            </div>
+
+            <div class="age-filters">
+                <div>age</div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filter21Under" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
+                        checked>
+                    <label class="custom-control-label" for="filter21Under"> 21 & under </label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filter22To25" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
+                        checked>
+                    <label class="custom-control-label" for="filter22To25">22-25</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filter25To30" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
+                        checked>
+                    <label class="custom-control-label" for="filter25To30">26-30</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filter30To35" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
+                        checked>
+                    <label class="custom-control-label" for="filter30To35">31-35</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filter35To40" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
+                        checked>
+                    <label class="custom-control-label" for="filter35To40">36-40</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filter40To50" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
+                        checked>
+                    <label class="custom-control-label" for="filter40To50">41-50</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input id="filter50Plus" type="checkbox" class="custom-control-input" onclick="updateFilter(); render();"
+                        checked>
+                    <label class="custom-control-label" for="filter50Plus">51+</label>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Moment Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-md modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"></h4>
+                    <div class="col-12 modal-title modal-moment-title">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body modal-moment-body">
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer modal-moment-footer">
                     <div class="demographic-tag gender"></div>
                     <div class="demographic-tag marital"></div>
                     <div class="demographic-tag parenthood"></div>
                     <div class="demographic-tag age"></div>
-                    <div class="demographic-tag country"></div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Info Modal -->
+    <img class="about-icon" src=" info.svg" height="40" width="40" onclick="showAbout()">
+    <div class="modal fade" id="aboutModal" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-12 modal-title">
+                        ABOUT<button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <p>HappyDB is a database built by researchers at Meganon Labs. The text contents of each happy
+                        moment, along with all corresponding demographic information, was collected via Amazon's
+                        Mechanical Turk, a crowdsourcing marketplace. The relevant dataset and paper can be found on
+                        Meganon Lab's website
+                        <a target="_blank" href="https://megagon.ai/projects/happydb-a-happiness-database-of-100000-happy-moments/">here</a>.</p>
+                    <p>Category icons via <a target="_blank" href="https://flaticon.com/">Flaticon</a>.</p>
+                    <p>This visualization was designed and created by Elaine Xiao & Kathryn Jin ☺️</p>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
+
+    <!-- Render script -->
     <script>
-        // Set some variables here
-        const minAge = 18;
-        const maxAge = 84;
-        const maxNum = 80;
+        const squareSize = 20; // length of a side of a square
+        const strokeWidth = .5;
+        const numPerRow = 40;
+        const numPerCol = 30;
+        const w = (squareSize + (strokeWidth * 2)) * numPerRow; // width of svg
+        const h = (squareSize + (strokeWidth * 2)) * numPerCol; // height of svg
+        const margin = {
+            top: 5,
+            right: 5,
+            bottom: 5,
+            left: 5,
+        }
+        const colorMap = {
+            "achievement": "#ffdca9",
+            "affection": "#fdc7d7",
+            "bonding": "#ECC1E2",
+            "enjoy_the_moment": "#d3c7e9",
+            "exercise": "#b3cde3",
+            "leisure": "#beebe9",
+            "nature": "#c5f1c5",
+        }
 
-        var margin = { top: 20, right: 15, bottom: 60, left: 15 }
-            , width = 1100 - margin.left - margin.right
-            , height = 600 - margin.top - margin.bottom;
-
-        var x = d3.scaleLinear()
-            .domain([minAge, maxAge])
-            .range([0, width])
-        var y = d3.scaleLinear()
-            .domain([0, maxNum])
-            .range([height, 0]);
-
-        var chart = d3.select('.d3chart')
-            .append('svg')
-            .attr('width', width + margin.right + margin.left)
-            .attr('height', height + margin.top + margin.bottom)
-            .attr('class', 'chart')
-
-        var main = chart.append('g')
-            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-            .attr('width', width)
-            .attr('height', height)
-            .attr('class', 'main')
-
-        // draw the x axis
-        var xAxis = d3.axisBottom(x).tickPadding(6).tickSize(0);
-
-        main.append('g')
-            .attr('transform', 'translate(0,' + (height + 8.5) + ')')
-            .attr('class', 'main axis date')
-            .call(xAxis);
-
-        main.append("text")
-            .attr("transform", "translate(" + (width / 2) + " ," + (height + 40) + ")")
-            .style("text-anchor", "middle")
-            .attr('class', 'axis-label')
-            .text("Age");
-
-        // draw the y axis
-        var yAxis = d3.axisLeft(y).tickSize(0);
-
-        // main.append('g')
-        //     .attr('transform', 'translate(0,0)')
-        //     .attr('class', 'main axis date')
-        //     .call(yAxis);
+        // Create scale
+        const scale = d3.scaleLinear()
+            .domain([0, numPerRow])
+            .range([0, w]);
 
         // TOOLTIP
         // define the div for the tooltip
-        var div = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0)
-
-        //tooltip
-        // Define the div for the tooltip
         var tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
 
-        var container = main.append("g")
+        // Create the svg
+        var svg = d3.select("body").append('svg')
+            .attr('class', 'chart')
+            .attr('width', w + margin.left + margin.right)
+            .attr('height', h + margin.top + margin.bottom)
+        var chart = svg.append('g')
+            .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
-        function update(category) {
-            //update colors for the category buttons
-            $("button.category").css({ "background-color": "#90B5BF", "box-shadow": "none" });
-            $("button.category." + category).css({ "background-color": "lightslategray", "box-shadow": "inset 0 0 .2rem #666" });
+        /**
+         * Render the data into the visualization layout.
+         */
+        function render() {
+            // Load in data
+            d3.csv("happy_moments_processed_full.csv").then(function (raw_data) {
+                // Filter, shuffle, slice, and sort data
+                let data = filter(raw_data);
+                // shuffle(data);
+                if (data.length >= 1200) {
+                    data = data.slice(0, 1200);
+                }
+                console.log(data);
+                data = data.sort((d1, d2) => (d1.predicted_category > d2.predicted_category) ? 1 : -1);
+                const l = data.length;
 
-            // Load in data from csv
-            d3.csv("happy_moments_sampled_data_4000.csv").then(function (raw_data) {
-                var data = raw_data.filter(function (d) { return d.predicted_category === category; });
+                chart.selectAll('rect').remove();
 
-                var dataByAge = d3.nest()
-                    .key(function (d) { return d.age; }).sortKeys(d3.ascending)
-                    .entries(data);
-                // console.log(JSON.stringify(dataByAge));
+                // Append new squares
+                const squares = chart.selectAll('rect')
+                    .data(data, function (d) { return d.hmid; })
 
-                container.selectAll("g").remove() //clear container for new data
-                container.selectAll("g")
-                    .data(dataByAge, function (d) { return d.hmid; })
-                    .enter().append("g")
-                    .attr("class", "year")
-                    .attr("transform", function (d, i) { return `translate(${x(d.key)}, 0)`; })
-                    .each(function (year, j) {
-                        var thisYear = d3.select(this)
-                            .selectAll('rect')
-                            .data(d3.entries(d3.entries(dataByAge[j])[1].value), function (d) { return d.hmid; });
-
-                        thisYear.enter().append("rect")
-                            .attr("transform", function (d, i) { return `translate(0, ${y(i)})`; })
-                            .attr("x", 0)
-                            .attr("y", 0)
-                            .attr("rx", .7)
-                            .attr("ry", .7)
-                            .attr("height", 5)
-                            .attr("width", 12)
-                            .attr("data-toggle", "modal")
-                            .attr("data-target", "#myModal")
-                            .on("mouseover", function (d) {
-                                // highlight rect 
-                                d3.select(this).style("fill", function () {
-                                    return d3.color('#F4D076');
-                                });
-                                // make rect expand
-                                var w = +d3.select(this).attr("width");
-                                d3.select(this).attr("x", +d3.select(this).attr("x") - .5).attr("width", w + 1);
-                                var h = +d3.select(this).attr("height");
-                                d3.select(this).attr("y", +d3.select(this).attr("y") - .5).attr("height", h + 1);
-                                // tooltip
-                                tooltip.transition()
-                                    .duration(30)
-                                    .style("opacity", 1)
-                                tooltip.html("&ldquo;" + d.value.cleaned_hm + "&rdquo;")
-                                    .style("left", (d3.event.pageX + 15) + "px")
-                                    .style("top", (d3.event.pageY - 20) + "px");
-                                //data for modal
-                                d3.select(this).attr("class", "info").datum(d).style("cursor", "pointer");
-                            })
-                            .on("mouseout", function (d) {
-                                // unhighlight color
-                                d3.select(this).style("fill", function () {
-                                    return d3.color('#90B5BF');
-                                });
-                                // change size back to normal
-                                var w = +d3.select(this).attr("width");
-                                d3.select(this).attr("x", +d3.select(this).attr("x") + .5).attr("width", w - 1);
-                                var h = +d3.select(this).attr("height");
-                                d3.select(this).attr("y", +d3.select(this).attr("y") + .5).attr("height", h - 1);
-                                // tooltip
-                                tooltip.transition()
-                                    .duration(30)
-                                    .style("opacity", 0);
-                                d3.select(this).attr("class", null)
-                            });
+                squares.enter().append('rect')
+                    .attr('x', (d, i) => {
+                        const n = i % numPerRow;
+                        return scale(n);
                     })
+                    .attr('y', (d, i) => {
+                        const n = Math.floor(i / numPerRow);
+                        return scale(n);
+                    })
+                    .attr('ry', 1)
+                    .attr('rx', 1)
+                    .attr('width', squareSize)
+                    .attr('height', squareSize)
+                    .attr('stroke-width', strokeWidth)
+                    .attr('stroke', 'white')
+                    .on("mouseover", handleMouseOver)
+                    .on("mouseout", handleMouseOut)
+                    .attr("data-toggle", "modal")
+                    .attr("data-target", "#myModal")
+                    .transition().delay(function (d, i) { return .9 * i; })
+                    .attr("class", (d) => { return d.predicted_category; });
+
+
+
+                function handleMouseOver(d) {
+                    // highlight rect 
+                    d3.select(this).style("fill", function (d) { return colorMap[d.predicted_category]; });
+                    d3.select(this).style("stroke", "gray");
+                    d3.select(this).style("stroke-width", "1.5px");
+                    // // make rect expand
+                    // var width = +d3.select(this).attr("width");
+                    // d3.select(this).attr("x", +d3.select(this).attr("x") - .5).attr("width", width + 1);
+                    // var height = +d3.select(this).attr("height");
+                    // d3.select(this).attr("y", +d3.select(this).attr("y") - .5).attr("height", height + 1);
+                    // tooltip
+                    tooltip.transition()
+                        .duration(30)
+                        .style("opacity", 1)
+                    tooltip.html("&ldquo;" + d.cleaned_hm + "&rdquo;")
+                        .style("left", (d3.event.pageX + 20) + "px")
+                        .style("top", (d3.event.pageY - 20) + "px");
+                    //data for modal
+                    d3.select(this).attr("class", "info").datum(d).style("cursor", "pointer");
+                }
+
+
+                function handleMouseOut(d) {
+                    // unhighlight color
+                    d3.select(this).style("stroke", "white");
+                    d3.select(this).style("stroke-width", "0px");
+                    d3.select(this).style("fill", function (d) { return colorMap[d.predicted_category]; });
+                    // // change size back to normal
+                    // var width = +d3.select(this).attr("width");
+                    // d3.select(this).attr("x", +d3.select(this).attr("x") + .5).attr("width", width - 1);
+                    // var height = +d3.select(this).attr("height");
+                    // d3.select(this).attr("y", +d3.select(this).attr("y") + .5).attr("height", height - 1);
+                    // tooltip
+                    tooltip.transition()
+                        .duration(30)
+                        .style("opacity", 0);
+                    d3.select(this).attr("class", null)
+                }
+            });
+
+            // open modal dialogue on click
+            $('#myModal').on('show.bs.modal', function (d) {
+                var d = d3.select(".info").data().pop();
+                let modalTitle = d3.selectAll(".modal-moment-title");
+                modalTitle.html(d.predicted_category.toUpperCase().replace(/_/g, " "));
+                let modalBody = d3.selectAll(".modal-moment-body");
+                modalBody.html("&ldquo;" + d.cleaned_hm + "&rdquo;");
+                let modalFooter = d3.selectAll(".modal-moment-footer");
+                //tags
+                let tagGender = d3.selectAll(".demographic-tag.gender")
+                tagGender.html(d.gender == 'f' ? 'female' : (d.gender == 'm' ? 'male' : 'other'))
+                let tagMarital = d3.selectAll(".demographic-tag.marital")
+                tagMarital.html(d.marital)
+                let tagParenthood = d3.selectAll(".demographic-tag.parenthood")
+                tagParenthood.html(d.parenthood == 'y' ? 'parent' : 'not parent')
+                let tagAge = d3.selectAll(".demographic-tag.age")
+                tagAge.html('age ' + d.age.slice(0, -2))
+                // modalFooter.html("Gender: " + d.value.gender + " | Marital: " + d.value.marital + " | Parenthood: " + d.value.parenthood + " | Country: " + d.value.country);
+            })
+
+        }
+
+        render();
+
+        // Update data according to filters
+        function filter(data) {
+            var filter_arr = ["filterFemale", "filterMale", "filterOtherGender",
+                "filterSingle", "filterMarried", "filterOtherMarital",
+                "filterParent", "filterNotParent",
+                "filter21Under", "filter22To25", "filter25To30", "filter30To35", "filter35To40", "filter40To50", "filter50Plus"];
+            var filter_map = {
+                "filterFemale": "f", "filterMale": "m", "filterOtherGender": "o",
+                "filterSingle": "single", "filterMarried": "married", "filterOtherMarital": "other",
+                "filterParent": "y", "filterNotParent": "n",
+                "filter21Under": "(0, 21]", "filter22To25": "(21, 25]", "filter25To30": "(25, 30]",
+                "filter30To35": "(30, 35]", "filter35To40": "(35, 40]", "filter40To50": "(40, 50]",
+                "filter50Plus": "(50, 100]"
+            };
+            var filter_indicators = filter_arr.map(f => $(`input[type="checkbox"][id=${f}]`).prop("checked") == true);
+
+            var gender_indices = [0, 3];
+            var marital_status_indices = [3, 6];
+            var parenthood_indices = [6, 8];
+            var age_indices = [8, 15];
+
+            let f_data_gender = filter_helper(data, gender_indices, 'gender');
+            let f_data_marital = filter_helper(f_data_gender, marital_status_indices, 'marital');
+            let f_data_parenthood = filter_helper(f_data_marital, parenthood_indices, 'parenthood');
+            let f_data_age = filter_helper(f_data_parenthood, age_indices, 'age_bins');
+
+            // Filters data for a filter category
+            function filter_helper(data, indices, category) {
+                var filtered_data = [];
+                var filter_subset = filter_arr.slice(indices[0], indices[1]);
+                var f_ind = filter_indicators.slice(indices[0], indices[1]);
+
+                // Ignore filter category if all or none of the options are selected
+                let f_ind_false = 0;
+                let f_ind_true = 0;
+                for (f of f_ind) {
+                    if (f) {
+                        f_ind_true++;
+                    } else {
+                        f_ind_false++;
+                    }
+                }
+                if (f_ind_true === f_ind.length || f_ind_false === f_ind.length) {
+                    return data;
+                }
+
+                // OR operation for all true filters
+                for (let i = 0; i < f_ind.length; i++) {
+                    if (f_ind[i]) {
+                        let temp_data = data.filter(function (d) { return d[category] === filter_map[filter_subset[i]] });
+                        filtered_data.push.apply(filtered_data, temp_data);
+                    }
+                }
+                console.log(filtered_data.length);
+                return filtered_data;
+            }
+
+            return f_data_age;
+        }
+
+        //Filters
+        function updateFilter() {
+            $('.custom-checkbox').css("background-color", function () {
+                if ($(this).find('input[type="checkbox"]').prop("checked")) {
+                    return "#eee"
+                }
+                else {
+                    return "#bbb"
+                }
+            });
+            $('.custom-checkbox').css("border", function () {
+                if ($(this).find('input[type="checkbox"]').prop("checked")) {
+                    return "solid 1px #ddd"
+                }
+                else {
+                    return "solid 1px #aaa"
+                }
             });
         }
-        // open modal dialogue on click
-        $('#myModal').on('show.bs.modal', function (d) {
-            var d = d3.select(".info").data().pop();
-            let modalTitle = d3.selectAll("h4.modal-title");
-            // modalTitle.text("test");
-            let modalBody = d3.selectAll(".modal-body");
-            modalBody.html("&ldquo;" + d.value.cleaned_hm + "&rdquo;");
-            let modalFooter = d3.selectAll(".modal-footer");
-            //tags
-            let tagGender = d3.selectAll(".demographic-tag.gender")
-            tagGender.html(d.value.gender == 'f' ? 'Female' : 'Male')
-            let tagMarital = d3.selectAll(".demographic-tag.marital")
-            tagMarital.html(d.value.marital.charAt(0).toUpperCase() + d.value.marital.slice(1))
-            let tagParenthood = d3.selectAll(".demographic-tag.parenthood")
-            tagParenthood.html(d.value.parenthood == 'y' ? 'Parent' : 'Not Parent')
-            let tagAge = d3.selectAll(".demographic-tag.age")
-            tagAge.html('Age ' + d.value.age.slice(0, -2))
-            let tagCountry = d3.selectAll(".demographic-tag.country")
-            tagCountry.html(d.value.country)
-            // modalFooter.html("Gender: " + d.value.gender + " | Marital: " + d.value.marital + " | Parenthood: " + d.value.parenthood + " | Country: " + d.value.country);
-        })
-        // Initialize plot with category = affection
-        update("affection");
+        function showAbout() {
+            $('#aboutModal').modal('show');
+        }
+        // Category highlighintg
+        $('.icon').on("mouseenter", function (e) {
+            highlight($(this).attr('id'));
+        });
+        $('.icon').on("mouseleave", function (e) {
+            unhighlight()
+        });
+
+        function highlight(category) {
+            console.log(category)
+            d3.selectAll("rect").attr("class", function (d) {
+                return d.predicted_category + " " + (d.predicted_category == category ? "is-active" : "is-inactive");
+            });
+        }
+
+        function unhighlight() {
+            d3.selectAll("rect").attr("class", function (d) {
+                return d.predicted_category + " " + "is-active";
+            });
+        }
 
     </script>
 
