@@ -48,7 +48,7 @@ The most time consuming part for me was definitely trying to figure out how to r
 
 Elaine: I spent ~2 hours looking through datasets, 1 hour to plan out the project with Kathryn, and ~30 hours on the project + writeup.
 
-Similar to Kathryn, the most time consuming part for me was probably trying to figure out how to render the chart for our original viz, and also just learning how to use D3 / how it works in general. After switching to the new version of 
+Similar to Kathryn, the most time consuming part for me was probably trying to figure out how to render the chart for our original viz, and also just learning how to use D3 / how it works in general. After switching to the new version of our viz, everything worked out pretty smoothly because I’d already run into a lot of issues in the original viz and learned how to fix them.
 
 
 ## Sources
