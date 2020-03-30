@@ -1,6 +1,6 @@
 body {
     display: grid;
-    grid-template-rows: 130px 50px 20px auto;
+    grid-template-rows: 135px 50px 20px auto;
     grid-template-columns: 180px 121px 121px 121px 121px 121px 121px 121px auto;
     justify-content: center;
     align-content: center;
