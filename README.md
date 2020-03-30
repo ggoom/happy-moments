@@ -1,11 +1,16 @@
 # A4-happy-moments
 
 ## Sources
-Data
+Data from
 https://www.kaggle.com/ritresearch/happydb#cleaned_hm.csv
 
-Design Inspiration
+Visualization concepts inspired by
 https://pudding.cool/2018/11/dearabby/
 
-D3 Tooltips
+Category icons from https://flaticon.com/
+
+D3 Tooltips adapted from
 https://bl.ocks.org/d3noob/a22c42db65eb00d4e369
+
+D3 Bootstrap modal integration adapted from
+http://embed.plnkr.co/1nSOK6MTMvbzHtwFjCy6/
