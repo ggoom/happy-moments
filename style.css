@@ -102,11 +102,12 @@ div.tooltip {
 .filter-container {
     grid-column: 1;
     grid-row: 3 / 4;
-    font-size: 12px;
+    /* font-size: 12px; */
+    transform: scale(0.8);
 }
 
 .custom-control {
-    padding: 7px 14px 7px 37px;
+    padding: 7px 12px 7px 35px;
     background-color: #eee;
     border: solid 1px #ddd;
     /* border-radius: 2rem; */
