@@ -162,7 +162,7 @@
                         Mechanical Turk, a crowdsourcing marketplace. The relevant dataset and paper can be found on
                         Meganon Lab's website
                         <a target="_blank" href="https://megagon.ai/projects/happydb-a-happiness-database-of-100000-happy-moments/">here</a>.</p>
-                    <p>Category icons via <a target="_blank" href="https://flaticon.com/">Flaticon</a>.</p>
+                    <p>Category icons via <a target="_blank" href="https://flaticon.com/">Flaticon</a> and hand-drawn.</p>
                     <p>This visualization was designed and created by Elaine Xiao & Kathryn Jin ☺️</p>
                 </div>
                 <div class="modal-footer">
@@ -234,7 +234,6 @@
                 if (data.length >= 1200) {
                     data = data.slice(0, 1200);
                 }
-                console.log(data);
                 data = data.sort((d1, d2) => (d1.predicted_category > d2.predicted_category) ? 1 : -1);
                 const l = data.length;
 
@@ -375,7 +374,6 @@
                         filtered_data.push.apply(filtered_data, temp_data);
                     }
                 }
-                console.log(filtered_data.length);
                 return filtered_data;
             }
 
