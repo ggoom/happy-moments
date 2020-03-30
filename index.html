@@ -3,12 +3,11 @@
 
 <head>
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <!-- <script src="index.js"></script> -->
-    <script src="data.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
         crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script type="text/javascript" src= "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"></script> 
 </head>
 
 <body>
@@ -20,18 +19,18 @@
         <div class="header"> what made you happy today? </div>
         <div class="subheader"> explore 100,000 moments of happiness by hovering over the pixels and icons. 
             play with filters to see what makes different people happy!
-            read more about the dataset & our data visualization process by clicking the icon in the bottom left corner :)
+            read more about the dataset & our data visualization process by clicking the icon in the bottom right corner :)
         </div>
     </div>
 
     <!-- Icons -->
-    <img class="icon achievement" id="achievement" src="achievement.svg" height="40" width="40">
-    <img class="icon affection" id="affection" src="affection.svg" height="40" width="40">
-    <img class="icon bonding" id="bonding" src="bonding.svg" height="45" width="45">
-    <img class="icon enjoy_the_moment" id="enjoy_the_moment" src="enjoy_the_moment.svg" height="35" width="35">
-    <img class="icon exercise" id="exercise" src="exercise.png" height="35" width="45">
-    <img class="icon leisure" id="leisure" src="leisure.svg" height="40" width="40">
-    <img class="icon nature" id="nature" src="nature.png" height="40" width="40">
+    <img class="icon achievement" id="achievement" src="icons/achievement.svg" height="35" width="35">
+    <img class="icon affection" id="affection" src="icons/affection.svg" height="35" width="35">
+    <img class="icon bonding" id="bonding" src="icons/bonding.svg" height="40" width="40">
+    <img class="icon enjoy_the_moment" id="enjoy_the_moment" src="icons/enjoy_the_moment.svg" height="30" width="30">
+    <img class="icon exercise" id="exercise" src="icons/exercise.png" height="30" width="40">
+    <img class="icon leisure" id="leisure" src="icons/leisure.svg" height="35" width="35">
+    <img class="icon nature" id="nature" src="icons/nature.png" height="35" width="35">
 
     <div class="icon-text achievement" id="icon-text achievement">achievement</div>
     <div class="icon-text affection" id="icon-text affection">affection</div>
@@ -41,9 +40,17 @@
     <div class="icon-text leisure" id="icon-text leisure">leisure</div>
     <div class="icon-text nature" id="icon-text nature">nature</div>
 
+    <div class="icon-proportion achievement" id="icon-proportion-achievement">34%</div>
+    <div class="icon-proportion affection" id="icon-proportion-affection">34%</div>
+    <div class="icon-proportion bonding" id="icon-proportion-bonding">11%</div>
+    <div class="icon-proportion enjoy_the_moment" id="icon-proportion-enjoy_the_moment">11%</div>
+    <div class="icon-proportion exercise" id="icon-proportion-exercise">1%</div>
+    <div class="icon-proportion leisure" id="icon-proportion-leisure">7%</div>
+    <div class="icon-proportion nature" id="icon-proportion-nature">2%</div>
+
     <!-- Filters -->
     <div class="filter-container">
-        <h5><b>filters</b></h5>
+        <h6><b>filters</b></h6>
         <div class="items">
             <div class="gender-filters">
                 <div> gender </div>
@@ -147,7 +154,7 @@
     </div>
 
     <!-- Info Modal -->
-    <img class="about-icon" src=" info.svg" height="30" width="30" onclick="showAbout()">
+    <img class="about-icon" src="icons/info.svg" height="30" width="30" onclick="showAbout()">
     <div class="modal fade" id="aboutModal" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -157,16 +164,30 @@
                     </div>
                 </div>
                 <div class="modal-body">
-                    <p>HappyDB is a database built by researchers at Meganon Labs. The text contents of each happy
-                        moment, along with all corresponding demographic information, was collected via Amazon's
-                        Mechanical Turk, a crowdsourcing marketplace. The relevant dataset and paper can be found on
+                    <p>Each "pixel" in our visualization represents a happy moment, which you can read by clicking on or hovering over the pixel.
+                        You can also hover over the icons above the grid to see which pixels belong to which category, indicated by the icons.
+                    </p>
+                    <p>
+                        For an easier viewing experience, we limited the number of moments displayed in the grid to a certain number. However,
+                        the proportions of moments per category are still representative of the proportions among the whole dataset. To do this, we 
+                        calculate the proportions & number of moments per category to display for the given selection of filters, and take a random 
+                        subset of the appropriate number of moments for each category. Thus, making the same selection of filters multiple times
+                        may yield a different random subset / order of happy moments every time, but the proportions from category to category 
+                        will stay the same.
+                    </p>
+                    <p>
+                        Click 
+                        <a target="_blank" href="https://github.mit.edu/6894-sp20/A4-happy-moments">here</a>
+                        to see more details about our process.
+                    </p>
+                    <p>Dataset used: 
+                        <a target="_blank" href="https://www.kaggle.com/ritresearch/happydb">HappyDB</a> 
+                        is a database built by researchers at Meganon Labs, who used Amazon's Mechanical Turk to collect responses (and corresponding 
+                        demographic information) to the question: "What made you happy today?". The relevant dataset and paper can be found on
                         Meganon Lab's website
                         <a target="_blank" href="https://megagon.ai/projects/happydb-a-happiness-database-of-100000-happy-moments/">here</a>.</p>
                     <p>Category icons via <a target="_blank" href="https://flaticon.com/">Flaticon</a> and hand-drawn.</p>
-                    <p>This visualization was designed and created by Elaine Xiao & Kathryn Jin ☺️</p>
-                </div>
-                <div class="modal-footer">
-                </div>
+                    <p>This visualization was designed and created by Elaine Xiao & Kathryn Jin &#x263A</p>
             </div>
         </div>
     </div>
@@ -186,8 +207,8 @@
         const strokeWidth = .5;
         const numPerRow = 40;
         const numPerCol = 30;
-        const w = (squareSize + (strokeWidth * 2)) * numPerRow; // width of svg
-        const h = (squareSize + (strokeWidth * 2)) * numPerCol; // height of svg
+        const w = (squareSize + (strokeWidth * 2)) * numPerRow; // width of chart
+        const h = (squareSize + (strokeWidth * 2)) * numPerCol; // height of chart
         const margin = {
             top: 5,
             right: 5,
@@ -228,13 +249,14 @@
          */
         function render() {
             // Load in data
-            d3.csv("happy_moments_processed_full.csv").then(function (raw_data) {
+            d3.csv("data/happy_moments_processed_full.csv").then(function (raw_data) {
                 // Filter, shuffle, slice, and sort data
-                let data = filter(raw_data);
-                // shuffle(data);
-                if (data.length >= 1200) {
-                    data = data.slice(0, 1200);
-                }
+                var data = filter(raw_data);
+                // Select subset of data according to calculated proportions, returns data of length <= 1200
+                selected = select(data);
+                data = selected[0];
+                var proportions = selected[1];
+    
                 data = data.sort((d1, d2) => (d1.predicted_category > d2.predicted_category) ? 1 : -1);
                 const l = data.length;
 
@@ -267,6 +289,8 @@
                     .attr("class", (d) => { return d.predicted_category; });
 
 
+                updateProportions(proportions); // update proportions under icons
+
 
                 function handleMouseOver(d) {
                     // highlight rect 
@@ -284,7 +308,6 @@
                     d3.select(this).attr("class", "info").datum(d).style("cursor", "pointer");
                 }
 
-
                 function handleMouseOut(d) {
                     // unhighlight color
                     d3.select(this).style("stroke", "white");
@@ -295,6 +318,13 @@
                         .duration(30)
                         .style("opacity", 0);
                     d3.select(this).attr("class", null)
+                }
+
+                function updateProportions(proportions) {
+                    let categories = Object.keys(proportions);
+                    for (c of categories) {
+                        document.getElementById("icon-proportion-" + c).innerHTML = proportions[c] + "%";
+                    }
                 }
             });
 
@@ -315,12 +345,12 @@
                 tagParenthood.html(d.parenthood == 'y' ? 'parent' : 'not parent')
                 let tagAge = d3.selectAll(".demographic-tag.age")
                 tagAge.html('age ' + d.age.slice(0, -2))
-                // modalFooter.html("Gender: " + d.value.gender + " | Marital: " + d.value.marital + " | Parenthood: " + d.value.parenthood + " | Country: " + d.value.country);
             })
 
         }
 
         render();
+        
 
         // Update data according to filters
         function filter(data) {
@@ -379,6 +409,60 @@
             }
 
             return f_data_age;
+        }
+
+        /**
+         * Calculates category proportions of data and returns a representative sample of size 1200 or less
+         */
+        function select(data) {
+            // count occurences of each category within data
+            var category_counts = {};
+            var category_values = {};
+            data.forEach(function(d) {
+                category_counts[d.predicted_category] = (category_counts[d.predicted_category] || 0) +1;
+                if (!(d.predicted_category in category_values)) {
+                    category_values[d.predicted_category] = []
+                }
+                category_values[d.predicted_category].push(d);
+            });
+            var categories = Object.keys(category_counts);
+
+
+            // category_nums = map from category to calculated number of moments in grid
+            var category_nums = {};
+            var category_proportions = {};
+            // if 1200 or less, no need to sample data
+            if (data.length <= 1200) {
+                for (c of categories) {
+                    category_proportions[c] = Math.round(category_counts[c] / data.length * 100);
+                }
+                return [data, category_proportions];
+            }
+            // if greater than 1200, sample data
+            var sum_so_far = 0;
+            for (let i=0; i<categories.length; i++) {
+                let cat = categories[i];
+                if (i === categories.length - 1) {
+                    let num = 1200 - sum_so_far;
+                    category_nums[cat] = num;
+                    category_proportions[cat] = Math.round(num / 1200 * 100);
+                    break;
+                }
+                let p = category_counts[cat] / data.length
+                let num = Math.round(p * 1200);
+                category_nums[cat] = num;
+                category_proportions[cat] = Math.round(p * 100);
+                sum_so_far += num;
+            }
+            
+            var selected_data = [];
+            for (let i=0; i<categories.length; i++) {
+                let cat = categories[i];
+                let temp_sample = _.sample(category_values[cat], category_nums[cat])
+                temp_sample.forEach(d => selected_data.push(d));
+            }
+            console.log(selected_data, category_proportions);
+            return [selected_data, category_proportions];
         }
 
         //Filters

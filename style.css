@@ -1,6 +1,6 @@
 body {
     display: grid;
-    grid-template-rows: 120px 18px 50px auto;
+    grid-template-rows: 90px 15px 43px 13px auto;
     grid-template-columns: 150px 121px 121px 121px 121px 121px 121px 121px auto;
     justify-content: center;
     align-content: center;
@@ -8,7 +8,7 @@ body {
     color: gray;
 }
 svg {
-    grid-row: 4;
+    grid-row: 5;
     grid-column: 2 / 8;
 }
 rect {
@@ -22,15 +22,10 @@ div.tooltip {
     position: absolute;			
     text-align: left;
     display: inline-block;
-    /* text-overflow: ellipsis; */
-    /* overflow: hidden; */
-    /* white-space: nowrap; */
-    /* overflow: hidden; */
     max-width: 20rem;
     min-height: 2.5rem;								
     padding: .6rem;
     color: gray;	
-    /* font: .8rem sans-serif;*/
 
     background: rgb(255, 255, 255);	
     border: 3px;
@@ -57,10 +52,11 @@ div.tooltip {
 }
 .modal-header {
     border: 0px;
-    padding: 0px;
+    padding: 5px 0px 0px 0px;
 }
 .modal-body {
     text-align: left;
+    font-size: 15px;
 }
 .modal-footer {
     border: 0px;
@@ -82,10 +78,10 @@ div.tooltip {
     align-self: flex-end;
     font-size: 30px;
     color: gray;
-    margin: 1rem 0 .5rem 0;
+    margin: 1rem 0 0.2rem 0;
 }
 .header {
-    font-size: 30px;
+    font-size: 26px;
 }
 .subheader {
     font-size: .7rem;
@@ -95,11 +91,11 @@ div.tooltip {
 /* Filters */
 .filter-container {
     grid-column: 1;
-    grid-row: 2 / 4;
+    grid-row: 3 / 5;
     font-size: 12px;
 }
 .custom-control {
-    padding: 7px 14px 7px 37px;
+    padding: 6.5px 14px 6.5px 35px;
     background-color: #e0e0e0;
     border: solid 1px rgb(214, 214, 214)
 }
@@ -162,10 +158,18 @@ div.tooltip {
 }
 .icon-text {
     grid-row: 2;
+    align-self: flex-start;
     justify-self: center;
-    font-size: 12px;
+    font-size: 10px;
     color: gray;
     opacity: 0;
+}
+.icon-proportion {
+    grid-row: 4;
+    justify-self: center;
+    font-size: 10px;
+    color: gray;
+    opacity: 100%;    
 }
 .icon:hover {
     transform: scale(1.1);
