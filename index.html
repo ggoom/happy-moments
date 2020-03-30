@@ -147,7 +147,7 @@
     </div>
 
     <!-- Info Modal -->
-    <img class="about-icon" src=" info.svg" height="40" width="40" onclick="showAbout()">
+    <img class="about-icon" src=" info.svg" height="30" width="30" onclick="showAbout()">
     <div class="modal fade" id="aboutModal" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -386,10 +386,10 @@
         function updateFilter() {
             $('.custom-checkbox').css("background-color", function () {
                 if ($(this).find('input[type="checkbox"]').prop("checked")) {
-                    return "#eee"
+                    return "#fcfcfc"
                 }
                 else {
-                    return "#bbb"
+                    return "#e0e0e0"
                 }
             });
             $('.custom-checkbox').css("border", function () {
@@ -397,7 +397,7 @@
                     return "solid 1px #ddd"
                 }
                 else {
-                    return "solid 1px #aaa"
+                    return "solid 1px rgb(214, 214, 214)"
                 }
             });
         }

@@ -84,11 +84,9 @@ div.tooltip {
     color: gray;
     margin: 1rem 0 .5rem 0;
 }
-
 .header {
     font-size: 30px;
 }
-
 .subheader {
     font-size: .7rem;
 }
@@ -102,19 +100,24 @@ div.tooltip {
 }
 .custom-control {
     padding: 7px 14px 7px 37px;
-    background-color: #eee;
-    border: solid 1px #ddd;
+    background-color: #e0e0e0;
+    border: solid 1px rgb(214, 214, 214)
 }
 .custom-control-inline {
     margin: 0.2rem 0rem;
 }
-input[type="checkbox"] + label span:hover  {
-    cursor: pointer;
+.custom-control-label::before,
+.custom-control-label::after {
+    width: 12px;
+    height: 12px;
+    background-color: lightgray;
 }
-.custom-control-input:focus ~ .custom-control-label::before {
-    box-shadow:none !important;
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: gray!important;
+}  
+.custom-checkbox .custom-control-input:checked:focus ~ .custom-control-label::before {
+    box-shadow: none;
 }
-
 
 
 /* Categories */
@@ -206,7 +209,7 @@ input[type="checkbox"] + label span:hover  {
     position: fixed;
     bottom: 0;
     right: 0;
-    margin: 1rem;
+    margin: 1.5rem;
     height: 40;
     size: 40;
     justify-self: center;
