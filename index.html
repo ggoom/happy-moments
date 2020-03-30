@@ -13,9 +13,16 @@
 
 <body>
     <!-- Header -->
-    <div class="header"> what makes you happy? </div>
+    <!-- <div class="header"> what made you happy today? </div>
     <div class="header-small-1"> explore 100,000 moments of happiness by hovering over the pixels and icons.</div>
-    <div class="header-small-2">play with filters to see what makes different people happy!</div>
+    <div class="header-small-2">play with filters to see what makes different people happy!</div> -->
+    <div class="heading">
+        <div class="header"> what made you happy today? </div>
+        <div class="subheader"> explore 100,000 moments of happiness by hovering over the pixels and icons. 
+            play with filters to see what makes different people happy!
+            read more about the dataset & our data visualization process by clicking the icon in the bottom left corner.
+        </div>
+    </div>
 
     <!-- Icons -->
     <img class="icon achievement" id="achievement" src="achievement.svg" height="40" width="40">
@@ -118,18 +125,18 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Moment Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-md modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="col-12 modal-title">
+                    <div class="col-12 modal-title modal-moment-title">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body modal-moment-body">
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer modal-moment-footer">
                     <div class="demographic-tag gender"></div>
                     <div class="demographic-tag marital"></div>
                     <div class="demographic-tag parenthood"></div>
@@ -138,6 +145,26 @@
             </div>
         </div>
     </div>
+
+    <!-- Info Modal -->
+    <img class="about-icon" src=" info.svg" height="40" width="40" onclick="showAbout()">
+    <div class="modal fade" id="aboutModal" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-12 modal-title">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    hewwo
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -180,19 +207,19 @@
         var tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
-                        
+
         // Create the svg
         var svg = d3.select("body").append('svg')
-                    .attr('class', 'chart')
-                    .attr('width', w + margin.left + margin.right)
-                    .attr('height', h + margin.top + margin.bottom)
+            .attr('class', 'chart')
+            .attr('width', w + margin.left + margin.right)
+            .attr('height', h + margin.top + margin.bottom)
         var chart = svg.append('g')
-                    .attr('transform', `translate(${margin.left}, ${margin.top})`)
+            .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
         /**
          * Render the data into the visualization layout.
          */
-        function render () {
+        function render() {
             // Load in data
             d3.csv("happy_moments_processed_full.csv").then(function (raw_data) {
                 // Filter, shuffle, slice, and sort data
@@ -206,11 +233,11 @@
                 const l = data.length;
 
                 chart.selectAll('rect').remove();
-                
+
                 // Append new squares
                 const squares = chart.selectAll('rect')
-                                .data(data, function(d) {return d.hmid;})
-                
+                    .data(data, function (d) { return d.hmid; })
+
                 squares.enter().append('rect')
                     .attr('x', (d, i) => {
                         const n = i % numPerRow;
@@ -230,8 +257,8 @@
                     .on("mouseout", handleMouseOut)
                     .attr("data-toggle", "modal")
                     .attr("data-target", "#myModal")
-                    .transition().delay(function(d, i) {return .9 * i;})
-                    .attr("class", (d) => {return d.predicted_category;});
+                    .transition().delay(function (d, i) { return .9 * i; })
+                    .attr("class", (d) => { return d.predicted_category; });
 
 
 
@@ -268,11 +295,11 @@
             // open modal dialogue on click
             $('#myModal').on('show.bs.modal', function (d) {
                 var d = d3.select(".info").data().pop();
-                let modalTitle = d3.selectAll(".modal-title");
+                let modalTitle = d3.selectAll(".modal-moment-title");
                 modalTitle.html(d.predicted_category.toUpperCase().replace(/_/g, " "));
-                let modalBody = d3.selectAll(".modal-body");
+                let modalBody = d3.selectAll(".modal-moment-body");
                 modalBody.html("&ldquo;" + d.cleaned_hm + "&rdquo;");
-                let modalFooter = d3.selectAll(".modal-footer");
+                let modalFooter = d3.selectAll(".modal-moment-footer");
                 //tags
                 let tagGender = d3.selectAll(".demographic-tag.gender")
                 tagGender.html(d.gender == 'f' ? 'female' : (d.gender == 'm' ? 'male' : 'other'))
@@ -291,17 +318,19 @@
 
         // Update data according to filters
         function filter(data) {
-            var filter_arr = ["filterFemale", "filterMale", "filterOtherGender", 
-                            "filterSingle", "filterMarried", "filterOtherMarital", 
-                            "filterParent", "filterNotParent", 
-                            "filter21Under", "filter22To25", "filter25To30", "filter30To35", "filter35To40", "filter40To50", "filter50Plus"];
-            var filter_map = {"filterFemale": "f", "filterMale": "m", "filterOtherGender": "o", 
-                            "filterSingle": "single", "filterMarried": "married", "filterOtherMarital": "other", 
-                            "filterParent": "y", "filterNotParent": "n", 
-                            "filter21Under": "(0, 21]", "filter22To25": "(21, 25]", "filter25To30": "(25, 30]", 
-                                    "filter30To35": "(30, 35]", "filter35To40": "(35, 40]", "filter40To50": "(40, 50]", 
-                                    "filter50Plus": "(50, 100]"};
-            var filter_indicators = filter_arr.map(f => $(`input[type="checkbox"][id=${f}]`).prop("checked") == true );
+            var filter_arr = ["filterFemale", "filterMale", "filterOtherGender",
+                "filterSingle", "filterMarried", "filterOtherMarital",
+                "filterParent", "filterNotParent",
+                "filter21Under", "filter22To25", "filter25To30", "filter30To35", "filter35To40", "filter40To50", "filter50Plus"];
+            var filter_map = {
+                "filterFemale": "f", "filterMale": "m", "filterOtherGender": "o",
+                "filterSingle": "single", "filterMarried": "married", "filterOtherMarital": "other",
+                "filterParent": "y", "filterNotParent": "n",
+                "filter21Under": "(0, 21]", "filter22To25": "(21, 25]", "filter25To30": "(25, 30]",
+                "filter30To35": "(30, 35]", "filter35To40": "(35, 40]", "filter40To50": "(40, 50]",
+                "filter50Plus": "(50, 100]"
+            };
+            var filter_indicators = filter_arr.map(f => $(`input[type="checkbox"][id=${f}]`).prop("checked") == true);
 
             var gender_indices = [0, 3];
             var marital_status_indices = [3, 6];
@@ -334,9 +363,9 @@
                 }
 
                 // OR operation for all true filters
-                for (let i=0; i < f_ind.length; i++) {
+                for (let i = 0; i < f_ind.length; i++) {
                     if (f_ind[i]) {
-                        let temp_data = data.filter(function(d){return d[category] === filter_map[filter_subset[i]]});
+                        let temp_data = data.filter(function (d) { return d[category] === filter_map[filter_subset[i]] });
                         filtered_data.push.apply(filtered_data, temp_data);
                     }
                 }
@@ -366,7 +395,9 @@
                 }
             });
         }
-
+        function showAbout() {
+            $('#aboutModal').modal('show');
+        }
         // Category highlighintg
         $('.icon').on("mouseenter", function (e) {
             highlight($(this).attr('id'));
