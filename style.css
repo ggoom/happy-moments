@@ -1,6 +1,6 @@
 body {
     display: grid;
-    grid-template-rows: 100px 50px 20px auto;
+    grid-template-rows: 120px 50px 20px auto;
     grid-template-columns: 250px 121px 121px 121px 121px 121px 121px 121px auto;
     justify-content: center;
     align-content: center;
@@ -79,13 +79,23 @@ div.tooltip {
 
 
 /* Header */
-.header {
+.heading {
     grid-row: 1;
     grid-column: 2 / 9;
-    justify-self: center;
-    align-self: center;
-    font-size: 30px;
     color: gray;
+    margin: 1rem 0 1rem 0;
+}
+
+.header {
+    font-size: 30px;
+    /* justify-self: center; */
+    /* align-self: center; */
+}
+
+.subheader {
+    font-size: .65rem;
+    /* justify-self: center;
+    align-self: center; */
 }
 
 /* Filters */
@@ -126,7 +136,7 @@ div.tooltip {
 }
 
 .bonding {
-    fill: #fce3f0;
+    fill: #ECC1E2;
 }
 
 .enjoy_the_moment {
@@ -195,4 +205,29 @@ div.tooltip {
 
 .nature {
     grid-column: 8;
+}
+
+/* Info */
+.about-icon {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 1rem;
+    height: 40;
+    size: 40;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .about-icon-text {
+    grid-row: 3;
+    justify-self: center;
+    font-size: 12px;
+    color: gray;
+}
+
+.about-icon:hover {
+    transform: scale(1.1);
+    transition: 500;
+    cursor: pointer;
 }

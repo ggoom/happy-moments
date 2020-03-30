@@ -13,7 +13,13 @@
 
 <body>
     <!-- Header -->
-    <div class="header"> what makes you happy? </div>
+    <div class="heading">
+        <div class="header"> happy moments </div>
+        <div class="subheader"> "what made you happy today?" explore below responses to this question from thousands of
+            humans of many kinds. these happy moments were sourced from HappyDB: "a happiness database of 100,000 happy
+            moments." This database was collected by researchers at Megagon Labs, who crowd-sourced
+            reflections via Amazon's Mechanical Turk. </div>
+    </div>
 
     <!-- Icons -->
     <img class="icon achievement" id="achievement" src="achievement.svg" height="40" width="40">
@@ -131,18 +137,18 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Moment Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-md modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="col-12 modal-title">
+                    <div class="col-12 modal-title modal-moment-title">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body modal-moment-body">
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer modal-moment-footer">
                     <div class="demographic-tag gender"></div>
                     <div class="demographic-tag marital"></div>
                     <div class="demographic-tag parenthood"></div>
@@ -151,6 +157,26 @@
             </div>
         </div>
     </div>
+
+    <!-- Info Modal -->
+    <img class="about-icon" src=" info.svg" height="40" width="40" onclick="showAbout()">
+    <div class="modal fade" id="aboutModal" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-12 modal-title">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    hewwo
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -176,7 +202,7 @@
         const colorMap = {
             "achievement": "#ffdca9",
             "affection": "#fdc7d7",
-            "bonding": "#fce3f0",
+            "bonding": "#ECC1E2",
             "enjoy_the_moment": "#d3c7e9",
             "exercise": "#b3cde3",
             "leisure": "#beebe9",
@@ -281,11 +307,11 @@
             // open modal dialogue on click
             $('#myModal').on('show.bs.modal', function (d) {
                 var d = d3.select(".info").data().pop();
-                let modalTitle = d3.selectAll(".modal-title");
+                let modalTitle = d3.selectAll(".modal-moment-title");
                 modalTitle.html(d.predicted_category.toUpperCase().replace(/_/g, " "));
-                let modalBody = d3.selectAll(".modal-body");
+                let modalBody = d3.selectAll(".modal-moment-body");
                 modalBody.html("&ldquo;" + d.cleaned_hm + "&rdquo;");
-                let modalFooter = d3.selectAll(".modal-footer");
+                let modalFooter = d3.selectAll(".modal-moment-footer");
                 //tags
                 let tagGender = d3.selectAll(".demographic-tag.gender")
                 tagGender.html(d.gender == 'f' ? 'female' : (d.gender == 'm' ? 'male' : 'other'))
@@ -339,6 +365,10 @@
                     return "solid 1px #aaa"
                 }
             });
+        }
+
+        function showAbout() {
+            $('#aboutModal').modal('show');
         }
 
     </script>
