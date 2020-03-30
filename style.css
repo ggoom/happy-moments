@@ -1,7 +1,7 @@
 body {
     display: grid;
     grid-template-rows: 120px 50px 20px auto;
-    grid-template-columns: 250px 121px 121px 121px 121px 121px 121px 121px auto;
+    grid-template-columns: 180px 121px 121px 121px 121px 121px 121px 121px auto;
     justify-content: center;
     align-content: center;
     font-family: 'Roboto Mono', monospace;
@@ -102,6 +102,7 @@ div.tooltip {
 .filter-container {
     grid-column: 1;
     grid-row: 3 / 4;
+    font-size: 12px;
 }
 
 .custom-control {
@@ -122,6 +123,10 @@ div.tooltip {
 .is-inactive {
     opacity: 30%;
     /* transition: opacity .1s; */
+}
+
+input[type="checkbox"] + label span:hover  {
+    cursor: pointer;
 }
 
 
